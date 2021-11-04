@@ -1,19 +1,39 @@
 const { Schema, model } = require("mongoose");
 
-// TODO: Please make sure you edit the user model to whatever makes sense in this case
 const userSchema = new Schema({
   username: {
     type: String,
     unique: true,
+    required: true
   },
-  password: String,
-  realName: String,
-  email: String,
-  profilePic: String,
+  email: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  fullName: String,
+  profilePic:  {
+    type: String,
+    default: 'https://png.pngtree.com/png-vector/20190909/ourmidpngtree-outline-user-icon-png-image_1727916.jpg'
+  },
   isAdmin: Boolean,
+  type: {
+    type: String,
+    enum:['User', 'Company']
+  },
+  sex:  {
+    type: String,
+    enum: ["Female", "Male"],
+  },
   age: Number,
-  Hobbies: {},
-  location: String, // change to dropdown
+ // location: String, // change to dropdown
+  hobbies: String,
+},{
+  timestamps: true,
 });
 
 const User = model("User", userSchema);
