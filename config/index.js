@@ -13,6 +13,9 @@ const cookieParser = require("cookie-parser");
 // unless the request if from the same domain, by default express wont accept POST requests
 const cors = require("cors");
 
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+
 // Middleware configuration
 module.exports = (app) => {
   // Because this is a server that will accept requests from outside and it will be hosted ona server with a `proxy`, express needs to know that it should trust that setting.
@@ -36,4 +39,26 @@ module.exports = (app) => {
   app.use(cookieParser());
 
   // Handles access to the favicon
+
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET || "another super secret key",
+      resave: false,
+      saveUninitialized: false,
+      store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI || "mongodb://localhost/hobby-meet",
+      }),
+      cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 365,
+        // ! these two lines below caused the embuggerance in class
+        // sameSite: "none",
+        // secure: process.env.NODE_ENV === "production",
+      },
+    })
+  );
+
+  app.use((req, res, next) => {
+    req.user = req.session.user || null;
+    next();
+  });
 };
