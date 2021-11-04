@@ -30,27 +30,28 @@ router.post("/signup", (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
-});
-
-// encrypt password
-const saltRounds = 10;
-return bcrypt.genSalt(saltRounds).then((salt) => {
-  bcrypt
-    .hash(password, salt)
-    .then((hashedPassword) => {
-      // create user
-      return User.create({ username, password: hashedPassword });
-    })
-    .then((user) => {
-      req.session.user = user;
-      req.status(201).json(user);
-    })
-    .catch((error) => {
-      return res.json({
-        errorMessage: `Problem creating user, ${error.message}`,
-      });
+    
+    // encrypt password
+    const saltRounds = 10;
+    return bcrypt.genSalt(saltRounds).then((salt) => {
+      bcrypt
+        .hash(password, salt)
+        .then((hashedPassword) => {
+          // create user
+          return User.create({ username, password: hashedPassword });
+        })
+        .then((user) => {
+          req.session.user = user;
+          req.status(201).json(user);
+        })
+        .catch((error) => {
+          return res.json({
+            errorMessage: `Problem creating user, ${error.message}`,
+          });
+        });
     });
 });
+
 
 // login
 router.post("/login", (req, res, next) => {
