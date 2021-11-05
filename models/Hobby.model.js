@@ -1,22 +1,41 @@
 const { Schema, model } = require("mongoose");
 
-const hobbySchema = new Schema({
+const hobbySchema = new Schema(
+  {
     name: String,
     typeOfActivity: {
-        type: String,
-        enum:['Sport', 'Craft', 'Workshop', 'Music', 'Art', 'Manual', 'Food', 'Gardening', 'MeetUp', 'Language', 'Spiritual']
+      type: String,
+      enum: [
+        "Sport",
+        "Craft",
+        "Workshop",
+        "Music",
+        "Art",
+        "Manual",
+        "Food",
+        "Gardening",
+        "MeetUp",
+        "Language",
+        "Spiritual",
+      ],
     },
+    description: String,
+    hobbyImage: String,
     placeOfActivity: {
-        type: String,
-        enum:['Indoors', 'Outdoors', 'Indoors/Outdoors']
+      type: String,
+      enum: ["Indoors", "Outdoors", "Indoors/Outdoors"],
     },
-    post_id:[{
+    post_id: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'Post'
-    }]
-},{
+        ref: "Post",
+      },
+    ],
+  },
+  {
     timestamps: true,
-})
+  }
+);
 
 const Hobby = model("Hobby", hobbySchema);
 
