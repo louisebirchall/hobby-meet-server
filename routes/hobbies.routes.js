@@ -15,7 +15,6 @@ Hobby.find()
 
 router.post("/create", (req, res, next) => {
   const { name, typeOfActivity, description, hobbyImage, placeOfActivity } = req.body;
-  // post_id -> not needed here?
   // console.log(req.body);
   console.log("CREATE HOBBIES")
   Hobby.create({
@@ -24,7 +23,6 @@ router.post("/create", (req, res, next) => {
     description,
     hobbyImage,
     placeOfActivity,
-    // post_id, -> not needed here?
   })
     .then((data) => res.json(data))
     .catch((err) => next(err));

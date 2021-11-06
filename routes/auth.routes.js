@@ -42,7 +42,7 @@ router.post("/signup", (req, res, next) => {
         })
         .then((user) => {
           req.session.user = user;
-          req.status(201).json(user);
+          return res.status(201).json(user);
         })
         .catch((error) => {
           return res.json({
