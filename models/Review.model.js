@@ -6,11 +6,12 @@ const reviewSchema = new Schema({
         ref:'User',
         require: true,
     },
+    comment: String,
     stars: Number,
 },{
     timestamps: true,
 })
 
-const Review = model("Post", reviewSchema);
+const Review = model("Review", reviewSchema);
 
 module.exports = Review;

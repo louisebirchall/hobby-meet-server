@@ -10,7 +10,7 @@ const postSchema = new Schema({
         ref:'User',
         require: true,
     },
-    comment: String,
+    description: String,
     likes: Number, //for the likes from other users 
 },{
     timestamps: true,
