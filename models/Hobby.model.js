@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const hobbySchema = new Schema(
-  {
+const hobbySchema = new Schema({
     name: String,
     typeOfActivity: {
       type: String,
@@ -17,6 +16,7 @@ const hobbySchema = new Schema(
         "MeetUp",
         "Language",
         "Spiritual",
+        'Photography'
       ],
     },
     description: String,

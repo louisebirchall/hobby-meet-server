@@ -55,7 +55,11 @@ const eventSchema = new Schema({
     post_id:[{
         type: Schema.Types.ObjectId,
         ref: 'Post'
-    }]
+    }],
+    review_id:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Review'
+    }],
 },{
     timestamps: true,
 });
