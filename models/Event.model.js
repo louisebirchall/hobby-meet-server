@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const eventSchema = new Schema({
-    image: {
+    eventImage: {
         type: String,
         default: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCthRyJ1Sh4X8HyhnyiqJLBxsULXwuz3TaRg&usqp=CAU'
     }, 
@@ -24,11 +24,11 @@ const eventSchema = new Schema({
         ref: 'User'
     }],
     attendees_max: {
-        type: number,
+        type: Number,
         min: 1,
     },
     attendees_min: {
-        type: number,
+        type: Number,
         min: 0,
     },
     pricePolicy: {
