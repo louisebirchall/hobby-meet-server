@@ -62,7 +62,7 @@ router.post("/login", (req, res, next) => {
 
   if (!username || !password) {
     return res.status(400).json({
-      errorMessage: `Maybe you forget to fill something? ${username ? "password" : "username"}`,
+      errorMessage: `Maybe did you forget to fill something? ${username ? 'password' : password ? 'username and password' : 'username'}`,
     });
   }
 
@@ -70,7 +70,7 @@ router.post("/login", (req, res, next) => {
     .then((user) => {
       if (!user) {
         return res.json({
-          errorMessage: "Username is incorrect, please try again",
+          errorMessage: "Do you have an account yet? Make sure you write you username correctly :-D!",
         });
       }
       bcrypt.compare(password, user.password).then((isSamePassword) => {

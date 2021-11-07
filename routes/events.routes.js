@@ -2,17 +2,13 @@ const router = require("express").Router();
 const Event = require("../models/Event.model");
 
 // create the main events route (list)
-
 router.get("/", (req, res, next) => {
-  //   Event.find({}, { eventImage: 1, title: 1, hobby_id: 1, date: 1 })
-
   Event.find()
-    .then((data) => res.json(data))
-    .catch((err) => next(err));
+   .then((data) => res.json(data))
+   .catch((err) => next(err));
 });
 
 // create the add events route
-
 router.post("/create", (req, res, next) => {
   const {
     title,
@@ -47,14 +43,13 @@ router.post("/create", (req, res, next) => {
 });
 
 // create the detailed events route
-
 router.get("/:id", (req, res, next) => {
   Event.findById(req.params.id)
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });
 
-// creating an endpoint 
+// creating an endpoint to show who's attending to the event
 router.post("/:id/attend", (req, res, next) => {
     Event.findByIdAndUpdate(req.params.id, { $push: { attendees: req.session.user._id } }, { new: true })
     .then((result) => {
@@ -67,7 +62,6 @@ router.post("/:id/attend", (req, res, next) => {
 // create the edit events route
 // router.patch because patch will only update the specific/chosen event _> /:id
 // (!) setting the change to "true" to confirm the done changes
-
 router.patch("/:id", (req, res, next) => {
     const {
         title,
@@ -108,7 +102,6 @@ router.patch("/:id", (req, res, next) => {
 // create the delete event route
 // router.delete
 // after deleting the event => redirect to event list ("/") ?
-
 router.delete("/:id", (req, res, next) => {
   Event.findByIdAndDelete(req.params.id)
     .then((data) => res.json(data._id))

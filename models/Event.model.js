@@ -39,13 +39,14 @@ const eventSchema = new Schema({
         type: Number
     },
    // location: coordinates, //mapbox
+   /*  We can delete this, because it already shows in the users profile that creates the event
     organizedBy: {
         type: String,
         enum: ['Charity', 'Company', 'User']
         // Charity is for charity companies
         // Private is for companies that want to offer an activity and donate the benefits to a cause
         // Personal is for people who wants to offer an activity and donate the benefits to a cause
-    },
+    }, */
     //this is for a dropdown to select the charity the event organizer wants to donate the money
     charity_id:{
         type: Schema.Types.ObjectId,
