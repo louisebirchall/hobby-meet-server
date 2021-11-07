@@ -4,17 +4,26 @@ const bcrypt = require("bcryptjs");
 
 // signup route
 router.post("/signup", (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, email, password } = req.body;
 
-  // verify sent info username
-  if (!username) {
-    return res.status(400).json({ errorMessage: "Please input username" });
+  // verify sent info
+  if (!username || !email || !password) {
+    return res.status(400).json({ errorMessage: "Hey! You need to enter your username, email and password for sign in!" });
+  }
+
+  // email BE validation
+  const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!mailRegex.test(email)) {
+    return res.json({
+      errorMessage: "Wooho! that seems to be an incorrect type of email. Please, write a correct one!",
+    });
   }
 
   // password length
-  if (password.length < 8) {
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+  if (!passwordRegex.test(password)) {
     return res.json({
-      errorMessage: "Please use at least 8 characters for your password",
+      errorMessage: "Oooo your password needs to be, at least, 8 characters long, uppercase and lowercase, if you want to get in!",
     });
   }
 
@@ -23,35 +32,29 @@ router.post("/signup", (req, res, next) => {
     .then((founduser) => {
       if (founduser) {
         return res.json({
-          errorMessage: "This username has been taken, please try another",
+          errorMessage: "Hi fellow! This username has already been taken. We are sure you'll find another one that fits you!",
         });
       }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-    
     // encrypt password
     const saltRounds = 10;
-    return bcrypt.genSalt(saltRounds).then((salt) => {
-      bcrypt
-        .hash(password, salt)
-        .then((hashedPassword) => {
+    return bcrypt
+      .genSalt(saltRounds)
+      .then((salt) => bcrypt.hash(password, salt))
+      .then((hashedPassword) => {
           // create user
           return User.create({ username, password: hashedPassword });
         })
-        .then((user) => {
+      .then((user) => {
           req.session.user = user;
-          return res.status(201).json(user);
+          res.status(201).json(user);
         })
-        .catch((error) => {
+      .catch((error) => {
           return res.json({
             errorMessage: `Problem creating user, ${error.message}`,
           });
-        });
-    });
+        })
+  });
 });
-
 
 // login
 router.post("/login", (req, res, next) => {
@@ -59,7 +62,7 @@ router.post("/login", (req, res, next) => {
 
   if (!username || !password) {
     return res.status(400).json({
-      errorMessage: `${username ? "password" : "username"} not filled`,
+      errorMessage: `Maybe you forget to fill something? ${username ? "password" : "username"}`,
     });
   }
 
@@ -80,9 +83,7 @@ router.post("/login", (req, res, next) => {
         return res.json(user);
       });
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch((err) => {next(err)});
 });
 
 // logout
@@ -93,7 +94,7 @@ router.post("/logout", (req, res, next) => {
         .status(500)
         .json({ errorMessage: `Problem with logout ${error.message}` });
     }
-    res.json({ successMessage: "Logged out correctly" });
+    res.json({ successMessage: "We'll miss you! We hope you'll come back soon!" });
   });
 });
 
@@ -102,7 +103,7 @@ router.get("/loggedin", (req, res, next) => {
   if (req.session.user) {
     res.json({ user: req.session.user });
   }
-  res.status(403).json({ errorMessage: "Problem with authentication" });
+  res.status(403).json({ errorMessage: "There was a problem with authentication. Please, try again!" });
 });
 
 module.exports = router;

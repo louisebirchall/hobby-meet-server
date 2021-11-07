@@ -28,7 +28,7 @@ router.post("/create", (req, res, next) => {
     charity_id,
   } = req.body; 
   // console.log(req.body);
-  console.log("CREATE EVENTS");
+  // console.log("CREATE EVENTS");
   Event.create({
     title,
     eventImage,
