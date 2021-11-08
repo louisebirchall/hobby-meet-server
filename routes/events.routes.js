@@ -105,4 +105,7 @@ router.delete("/:id", (req, res, next) => {
     .catch((err) => next(err));
 });
 
+
+// How we make the relation between the user that created the event and the event?
+
 module.exports = router;
