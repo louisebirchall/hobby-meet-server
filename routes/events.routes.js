@@ -21,7 +21,7 @@ router.post("/create", (req, res, next) => {
     attendees_min,
     pricePolicy,
     price,
-    charity_id,
+    // charity_id,
   } = req.body; 
   // console.log(req.body);
   // console.log("CREATE EVENTS");
@@ -36,7 +36,7 @@ router.post("/create", (req, res, next) => {
     attendees_min,
     pricePolicy,
     price,
-    charity_id,
+    // charity_id,
   })
     .then((data) => res.json(data))
     .catch((err) => next(err));
@@ -70,8 +70,6 @@ router.patch("/:id", (req, res, next) => {
         description,
         equipment,
         date,
-        owner_id,
-        attendees,
         attendees_max,
         attendees_min,
         pricePolicy,
@@ -86,13 +84,12 @@ router.patch("/:id", (req, res, next) => {
         description,
         equipment,
         date,
-        owner_id,
-        attendees,
         attendees_max,
         attendees_min,
         pricePolicy,
         price,
-        charity_id },
+        charity_id 
+      },
     { new: true }
   )
     .then((data) => res.json(data))

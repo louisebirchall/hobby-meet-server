@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Charity = require("../models/Event.model");
+const Charity = require("../models/Charity.model");
 
 // create the main charities route (list)
 router.get("/", (req, res, next) => {
