@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const Charity = require("../models/Event.model");
 
+// The Charities will be created by admins
+
 // create the main charities route (list)
 router.get("/", (req, res, next) => {
     Charity.find()

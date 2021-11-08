@@ -1,8 +1,6 @@
 const router = require("express").Router();
 const Post = require("../models/Post.model");
 
-// create the main posts route (list) 
-// Do we want to show a list with all the posts??
 
 // create the add posts route
 

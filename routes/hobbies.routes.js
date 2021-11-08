@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const Hobby = require("../models/Hobby.model");
 
+// The hobbies will be created by admins
+
 // create the main hobbies route (list)
 router.get("/", (req, res, next) => {
    Hobby.find()
