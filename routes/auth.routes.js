@@ -135,10 +135,10 @@ router.get("/profiles", (req, res, next) => {
 
 //detailed profile (=> private)
 router.get("/profile/:id", (req, res, next) => {
-  const logged_id = req.session.user._id;
-  const isLoggedUser = user_id === logged_id;
+ // const logged_id = req.session.user._id;
+ // const isLoggedUser = user_id === logged_id;
   User.findById(req.params.id)
-    .then((data) => res.json(data, isLoggedUser))
+    .then((data) => res.json(data, /* isLoggedUser */))
     .catch((err) => next(err));
 });
 
