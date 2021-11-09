@@ -13,9 +13,9 @@ const productSchema = new Schema({
         type: Schema.Types.ObjectId,  
         ref: 'User'
     },
-    hobbyRelated_id: {
+    eventRelated_id: {
         type: Schema.Types.ObjectId,
-        ref: 'Hobby'
+        ref: 'Event'
     },
     charity_id:{
         type: Schema.Types.ObjectId,
