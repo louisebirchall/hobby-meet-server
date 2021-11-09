@@ -10,8 +10,8 @@ router.get("/", (req, res, next) => {
 
 // create the add products route
 router.post("/create", (req, res, next) => {
-    const {title, productImage, description, pricePolicy, price, /* createdBy_id, */ eventRelated_id, charity_id} = req.body;
-    Product.create({title, productImage, description, pricePolicy, price, /* createdBy_id, */ eventRelated_id, charity_id})
+    const {title, productImage, description, pricePolicy, price, /* createdBy_id comming from user.session, */ event_id, charity_id} = req.body;
+    Product.create({title, productImage, description, pricePolicy, price, /* createdBy_id, */ event_id, charity_id})
     .then((data) => res.json(data))
     .catch((err) => {next(err)});
 })
@@ -25,10 +25,10 @@ router.get("/:id", (req, res, next) => {
 
 // create the edit products route
 router.patch("/:id", (req, res, next) => {
-    const {title, productImage, description, pricePolicy, price, /* createdBy_id, */ eventRelated_id, charity_id} = req.body;
+    const {title, productImage, description, pricePolicy, price, /* createdBy_id, */ event_id, charity_id} = req.body;
     Product.findByIdAndUpdate(
     req.params.id,
-    {title, productImage, description, pricePolicy, price, /* createdBy_id, */ eventRelated_id, charity_id} ,
+    {title, productImage, description, pricePolicy, price, /* createdBy_id, */ event_id, charity_id} ,
     { new: true }
   )
     .then((data) => res.json(data))
