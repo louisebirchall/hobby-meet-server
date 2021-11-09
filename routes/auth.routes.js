@@ -50,7 +50,7 @@ router.post("/signup", (req, res, next) => {
       .then((salt) => bcrypt.hash(password, salt))
       .then((hashedPassword) => {
         // create user
-        return User.create({ username, password: hashedPassword });
+        return User.create({ username, password: hashedPassword, email });
       })
       .then((user) => {
         req.session.user = user;

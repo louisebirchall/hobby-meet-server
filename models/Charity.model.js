@@ -8,11 +8,11 @@ const charitySchema = new Schema({
     name: String,
     description: String,
     //location: coordinates,
-    post_id:[{
+    posts:[{
         type: Schema.Types.ObjectId,
         ref: 'Post'
     }],
-    review_id:[{
+    reviews:[{
         type: Schema.Types.ObjectId,
         ref: 'Review'
     }],

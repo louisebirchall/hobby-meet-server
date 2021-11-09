@@ -8,6 +8,16 @@ router.get("/", (req, res, next) => {
    .catch((err) => next(err));
 });
 
+router.get("/random/:number", (req, res, next) => {
+  Event.count()
+   .then((numberOfEvents) => {
+      const randomNumber = Math.floor(Math.random() * numberOfEvents)
+     return Event.find({}, {}, { skip: randomNumber, limit: req.params.number })
+   })
+   .then(event => res.json(event))
+   .catch((err) => next(err));
+});
+
 // create the add events route
 router.post("/create", (req, res, next) => {
   const {
