@@ -1,13 +1,8 @@
 const router = require("express").Router();
 const Review = require("../models/Review.model");
 
-// create the add posts route
-router.post("/create", (req, res, next) => {
-    const {comment, stars} = req.body;
-    Review.create({comment, stars})
-        .then((data) => res.json(data))
-        .catch((err) => {next(err)});
-})
+// the create reviews route is in each place that is having a review created
+
 
 // create the detailed posts route
 router.get("/:id", (req, res, next) => {
