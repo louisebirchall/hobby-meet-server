@@ -12,7 +12,7 @@ router.post("/signup", (req, res, next) => {
       .status(400)
       .json({
         errorMessage:
-          "Hey! You need to enter your username, email and password for sign in!",
+          "Hey! You need to enter your username, email and password for sign up!",
       });
   }
 

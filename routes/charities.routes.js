@@ -26,7 +26,7 @@ router.get("/:id", (req, res, next) => {
   });
 
 // create the edit charities route
-// router.patch because patch will only update the specific/chosen event _> /:id
+// router.patch because patch will only update the specific/chosen charity _> /:id
 router.patch("/:id", (req, res, next) => {
     const {
         charityImage,

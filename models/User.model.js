@@ -4,15 +4,15 @@ const userSchema = new Schema({
   username: {
     type: String,
     unique: true,
-    required: true
+    require: true
   },
   email: {
     type: String,
-    //required: true
+    require: true // still doesn't print in MongoDb
   },
   password: {
     type: String,
-    required: true
+    require: true
   },
   fullName: String,
   profileImage:  {
