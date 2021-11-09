@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Charity = require("../models/Charity.model");
 const Review = require("../models/Review.model");
+
 // The Charities will be created by admins
 
 // create the main charities route (list)
@@ -25,7 +26,7 @@ router.get("/:id", (req, res, next) => {
       .catch((err) => next(err));
   });
 
-// create the detailed charities route
+// create the review for charity
 router.post("/:id/reviews/create", (req, res, next) => {
   const { comment, stars } = req.body;
   const { user } = req.session;

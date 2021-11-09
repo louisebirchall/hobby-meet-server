@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Event = require("../models/Event.model");
+const Review = require("../models/Review.model");
 
 // create the main events route (list)
 router.get("/", (req, res, next) => {
@@ -58,6 +59,20 @@ router.get("/:id", (req, res, next) => {
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });
+
+// create the review for events
+router.post("/:id/reviews/create", (req, res, next) => {
+  const { comment, stars } = req.body;
+  const { user } = req.session;
+  Review.create({ comment, stars, user_id: user._id })
+      .then((review) => {
+        return Event.findByIdAndUpdate(req.params.id, { $push: { reviews: review._id } }, { new: true }).populate("reviews")
+      })
+      .then((charity) => {
+        return res.json({ charity })
+      })
+      .catch((err) => {next(err)});  
+  });
 
 // creating an endpoint to show who's attending to the event
 router.post("/:id/attend", (req, res, next) => {
