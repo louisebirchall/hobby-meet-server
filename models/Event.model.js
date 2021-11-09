@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const eventSchema = new Schema({
-    image: {
+    eventImage: {
         type: String,
         default: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCthRyJ1Sh4X8HyhnyiqJLBxsULXwuz3TaRg&usqp=CAU'
     }, 
@@ -38,7 +38,7 @@ const eventSchema = new Schema({
     price: {
         type: Number
     },
-   // location: coordinates, //mapbox
+  // location:, // coordinates, //mapbox
     organizedBy: {
         type: String,
         enum: ['Charity', 'Company', 'User']
