@@ -4,19 +4,18 @@ const userSchema = new Schema({
   username: {
     type: String,
     unique: true,
-    required: true
+    require: true
   },
   email: {
     type: String,
-    unique: true,
-    required: true
+    require: true // still doesn't print in MongoDb
   },
   password: {
     type: String,
-    required: true
+    require: true
   },
   fullName: String,
-  profilePic:  {
+  profileImage:  {
     type: String,
     default: 'https://png.pngtree.com/png-vector/20190909/ourmidpngtree-outline-user-icon-png-image_1727916.jpg'
   },

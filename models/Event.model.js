@@ -24,11 +24,11 @@ const eventSchema = new Schema({
         ref: 'User'
     }],
     attendees_max: {
-        type: number,
+        type: Number,
         min: 1,
     },
     attendees_min: {
-        type: number,
+        type: Number,
         min: 0,
     },
     pricePolicy: {
