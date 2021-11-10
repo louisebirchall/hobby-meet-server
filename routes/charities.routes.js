@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const Charity = require("../models/Charity.model");
 const Review = require("../models/Review.model");
+const Post = require("../models/Post.model")
+
 
 // The Charities will be created by admins
 
@@ -33,6 +35,20 @@ router.post("/:id/reviews/create", (req, res, next) => {
   Review.create({ comment, stars, user_id: user._id })
       .then((review) => {
         return Charity.findByIdAndUpdate(req.params.id, { $push: { reviews: review._id } }, { new: true }).populate("reviews")
+      })
+      .then((charity) => {
+        return res.json({ charity })
+      })
+      .catch((err) => {next(err)});  
+  });
+
+    // create the post for charities
+router.post("/:id/posts/create", (req, res, next) => {
+  const { postImage, description } = req.body;
+  const { user } = req.session;
+  Post.create({ postImage, description, user_id: user._id })
+      .then((post) => {
+        return Charity.findByIdAndUpdate(req.params.id, { $push: { posts: post._id } }, { new: true }).populate("posts")
       })
       .then((charity) => {
         return res.json({ charity })

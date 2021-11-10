@@ -11,8 +11,9 @@ router.get("/", (req, res, next) => {
 
 // create the add products route
 router.post("/create", (req, res, next) => {
-    const {title, productImage, description, pricePolicy, price, /* createdBy_id comming from user.session, */ event_id, charity_id} = req.body;
-    Product.create({title, productImage, description, pricePolicy, price, /* createdBy_id, */ event_id, charity_id})
+    const {title, productImage, description, pricePolicy, price} = req.body;
+    const { user } = req.session;
+    Product.create({title, productImage, description, pricePolicy, price, user_id: user._id })
     .then((data) => res.json(data))
     .catch((err) => {next(err)});
 })
@@ -32,18 +33,18 @@ router.post("/:id/reviews/create", (req, res, next) => {
       .then((review) => {
         return Product.findByIdAndUpdate(req.params.id, { $push: { reviews: review._id } }, { new: true }).populate("reviews")
       })
-      .then((charity) => {
-        return res.json({ charity })
+      .then((product) => {
+        return res.json({ product })
       })
       .catch((err) => {next(err)});  
   }); 
 
 // create the edit products route
 router.patch("/:id", (req, res, next) => {
-    const {title, productImage, description, pricePolicy, price, /* createdBy_id, */ event_id, charity_id} = req.body;
+    const {title, productImage, description, pricePolicy, price} = req.body;
     Product.findByIdAndUpdate(
     req.params.id,
-    {title, productImage, description, pricePolicy, price, /* createdBy_id, */ event_id, charity_id} ,
+    {title, productImage, description, pricePolicy, price} ,
     { new: true }
   )
     .then((data) => res.json(data))
