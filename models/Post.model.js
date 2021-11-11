@@ -12,6 +12,7 @@ const postSchema = new Schema({
     },
     description: String,
     likes: Number, //for the likes from other users 
+    dislikes: Number, //for the dislikes from other users 
 },{
     timestamps: true,
 })
