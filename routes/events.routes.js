@@ -5,7 +5,7 @@ const Post = require("../models/Post.model")
 
 // create the main events route (list)
 router.get("/", (req, res, next) => {
-  Event.find()
+  Event.find().populate("posts user_id reviews")
    .then((data) => res.json(data))
    .catch((err) => next(err));
 });
@@ -56,7 +56,7 @@ router.post("/create", (req, res, next) => {
 
 // create the detailed events route
 router.get("/:id", (req, res, next) => {
-  Event.findById(req.params.id)
+  Event.findById(req.params.id).populate("posts user_id reviews")
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });

@@ -4,7 +4,7 @@ const Review = require("../models/Review.model");
 
 // create the main products route (list)
 router.get("/", (req, res, next) => {
-    Product.find()
+    Product.find().populate("user_id reviews")
      .then((data) => res.json(data))
      .catch((err) => next(err));
   });
@@ -20,7 +20,7 @@ router.post("/create", (req, res, next) => {
 
 // create the detailed products route
 router.get("/:id", (req, res, next) => {
-    Product.findById(req.params.id)
+    Product.findById(req.params.id).populate("user_id reviews")
       .then((data) => res.json(data))
       .catch((err) => next(err));
   });

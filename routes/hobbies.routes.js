@@ -7,7 +7,7 @@ const Post = require("../models/Post.model")
 
 // create the main hobbies route (list)
 router.get("/", (req, res, next) => {
-   Hobby.find()
+   Hobby.find().populate("posts")
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });
@@ -30,7 +30,7 @@ router.post("/create", (req, res, next) => {
 
 // create the detailed hobbies route
 router.get("/:id", (req, res, next) => {
-    Hobby.findById(req.params.id)
+    Hobby.findById(req.params.id).populate("posts")
     .then((data) => res.json(data))
     .catch((err) => next(err));
 })

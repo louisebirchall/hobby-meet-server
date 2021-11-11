@@ -8,7 +8,7 @@ const Post = require("../models/Post.model")
 
 // create the main charities route (list)
 router.get("/", (req, res, next) => {
-    Charity.find()
+    Charity.find().populate("posts reviews")
      .then((data) => res.json(data))
      .catch((err) => next(err));
   });
@@ -23,7 +23,7 @@ router.post("/create", (req, res, next) => {
 
 // create the detailed charities route
 router.get("/:id", (req, res, next) => {
-    Charity.findById(req.params.id)
+    Charity.findById(req.params.id).populate("posts reviews")
       .then((data) => res.json(data))
       .catch((err) => next(err));
   });
