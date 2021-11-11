@@ -16,13 +16,13 @@ router.use("/events", eventsRoutes);
 const charitiesRoutes = require("./charities.routes");
 router.use("/charities", charitiesRoutes);
 
-const productRoutes = require("./product.routes");
-router.use("/product", productRoutes);
+const productsRoutes = require("./products.routes");
+router.use("/products", productsRoutes);
 
-const postRoutes = require("./post.routes");
-router.use("/post", postRoutes);
+const postsRoutes = require("./posts.routes");
+router.use("/posts", postsRoutes);
 
-const reviewRoutes = require("./reviews.routes");
-router.use("/review", reviewRoutes);
+const reviewsRoutes = require("./reviews.routes");
+router.use("/reviews", reviewsRoutes);
 
 module.exports = router;
