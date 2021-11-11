@@ -1,10 +1,22 @@
 const router = require("express").Router();
 const Event = require("../models/Event.model");
+const Review = require("../models/Review.model");
+const Post = require("../models/Post.model")
 
 // create the main events route (list)
 router.get("/", (req, res, next) => {
   Event.find()
    .then((data) => res.json(data))
+   .catch((err) => next(err));
+});
+
+router.get("/random/:number", (req, res, next) => {
+  Event.count()
+   .then((numberOfEvents) => {
+      const randomNumber = Math.floor(Math.random() * numberOfEvents)
+     return Event.find({}, {}, { skip: randomNumber, limit: req.params.number })
+   })
+   .then(event => res.json(event))
    .catch((err) => next(err));
 });
 
@@ -21,8 +33,8 @@ router.post("/create", (req, res, next) => {
     attendees_min,
     pricePolicy,
     price,
-    // charity_id,
   } = req.body; 
+  const { user } = req.session;
   // console.log(req.body);
   // console.log("CREATE EVENTS");
   Event.create({
@@ -36,7 +48,7 @@ router.post("/create", (req, res, next) => {
     attendees_min,
     pricePolicy,
     price,
-    // charity_id,
+    user_id: user._id 
   })
     .then((data) => res.json(data))
     .catch((err) => next(err));
@@ -48,6 +60,34 @@ router.get("/:id", (req, res, next) => {
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });
+
+// create the review for events
+router.post("/:id/reviews/create", (req, res, next) => {
+  const { comment, stars } = req.body;
+  const { user } = req.session;
+  Review.create({ comment, stars, user_id: user._id })
+      .then((review) => {
+        return Event.findByIdAndUpdate(req.params.id, { $push: { reviews: review._id } }, { new: true }).populate("reviews")
+      })
+      .then((event) => {
+        return res.json({ event })
+      })
+      .catch((err) => {next(err)});  
+  });
+
+  // create the post for events
+router.post("/:id/posts/create", (req, res, next) => {
+  const { postImage, description } = req.body;
+  const { user } = req.session;
+  Post.create({ postImage, description, user_id: user._id })
+      .then((post) => {
+        return Event.findByIdAndUpdate(req.params.id, { $push: { posts: post._id } }, { new: true }).populate("posts")
+      })
+      .then((event) => {
+        return res.json({ event })
+      })
+      .catch((err) => {next(err)});  
+  });
 
 // creating an endpoint to show who's attending to the event
 router.post("/:id/attend", (req, res, next) => {

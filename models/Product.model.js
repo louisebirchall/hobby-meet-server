@@ -9,19 +9,19 @@ const productSchema = new Schema({
         enum: ['FixedPrice', 'Voluntary'] 
     },
     price: Number,
-    createdBy_id: { 
+    user_id: { 
         type: Schema.Types.ObjectId,  
         ref: 'User'
     },
-    hobbyRelated_id: {
+    event_id: {
         type: Schema.Types.ObjectId,
-        ref: 'Hobby'
+        ref: 'Event'
     },
     charity_id:{
         type: Schema.Types.ObjectId,
         ref: 'Charity'
     },
-    review_id:[{
+    reviews:[{
         type: Schema.Types.ObjectId,
         ref: 'Review'
     }],

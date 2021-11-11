@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const Hobby = require("../models/Hobby.model");
+const Post = require("../models/Post.model")
+
 
 // The hobbies will be created by admins
 
@@ -32,6 +34,20 @@ router.get("/:id", (req, res, next) => {
     .then((data) => res.json(data))
     .catch((err) => next(err));
 })
+
+ // create the post for hobbies
+router.post("/:id/posts/create", (req, res, next) => {
+    const { postImage, description } = req.body;
+    const { user } = req.session;
+    Post.create({ postImage, description, user_id: user._id })
+        .then((post) => {
+          return Hobby.findByIdAndUpdate(req.params.id, { $push: { posts: post._id } }, { new: true }).populate("posts")
+        })
+        .then((hobby) => {
+          return res.json({ hobby })
+        })
+        .catch((err) => {next(err)});  
+    });
 
 // create the edit hobbies route
 // router.patch because patch will only update the specific/chosen hobby _> /:id 

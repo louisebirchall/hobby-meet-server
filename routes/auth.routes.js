@@ -50,7 +50,7 @@ router.post("/signup", (req, res, next) => {
       .then((salt) => bcrypt.hash(password, salt))
       .then((hashedPassword) => {
         // create user
-        return User.create({ username, password: hashedPassword });
+        return User.create({ username, password: hashedPassword, email });
       })
       .then((user) => {
         req.session.user = user;
@@ -136,7 +136,7 @@ router.get("/profiles", (req, res, next) => {
 //detailed profile (=> private)
 router.get("/profile/:id", (req, res, next) => {
  // const logged_id = req.session.user._id;
- // const isLoggedUser = user_id === logged_id;
+ // const isLoggedUser = user_id === logged_id; This should be done through middlewares
   User.findById(req.params.id)
     .then((data) => res.json(data, /* isLoggedUser */))
     .catch((err) => next(err));

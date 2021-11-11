@@ -15,7 +15,7 @@ const eventSchema = new Schema({
     equipment: String,
     date: Date,
     //this is to show the users attending to the event
-    owner_id: { 
+    user_id: { 
         type: Schema.Types.ObjectId,  
         ref: 'User'
     },
@@ -52,11 +52,11 @@ const eventSchema = new Schema({
         ref: 'Charity'
     },
     //this is for showing the opinions about the event
-    post_id:[{
+    posts:[{
         type: Schema.Types.ObjectId,
         ref: 'Post'
     }],
-    review_id:[{
+    reviews:[{
         type: Schema.Types.ObjectId,
         ref: 'Review'
     }],
