@@ -1,4 +1,6 @@
 const router = require("express").Router();
+// const imageUploader = require("../config/cloudinary.config")
+
 
 router.get("/", (req, res, next) => {
   res.json("All good in here");
@@ -25,12 +27,12 @@ router.use("/posts", postsRoutes);
 const reviewsRoutes = require("./reviews.routes");
 router.use("/reviews", reviewsRoutes);
 
-router.post("/upload", imageUploader.single('postImage'),(req, res, next) => {
-  if(!req.file){
-    next(new Error("No file upload!"))
-    return; 
-  }
-  res.json({ imagePath: req.file.path })
-})
+// router.post("/upload", imageUploader.single('postImage'),(req, res, next) => {
+//   if(!req.file){
+//     next(new Error("No file upload!"))
+//     return; 
+//   }
+//   res.json({ imagePath: req.file.path })
+// });
 
 module.exports = router;
