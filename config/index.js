@@ -47,10 +47,10 @@ module.exports = (app) => {
       saveUninitialized: false,
       store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI || "mongodb://localhost/hobby-meet",
-        ttl: 60 * 60 * 24
+        ttl: 60 * 60 * 24 * 365,
       }),
       cookie: {
-        maxAge: 60 * 60 * 24 * 7,
+        maxAge: 60 * 60 * 24 * 7 * 365,
         // ! these two lines below caused embuggerance
         // sameSite: "none",
         // secure: process.env.NODE_ENV === "production",

@@ -8,12 +8,10 @@ router.post("/signup", (req, res, next) => {
 
   // verify sent info
   if (!username || !email || !password) {
-    return res
-      .status(400)
-      .json({
-        errorMessage:
-          "Hey! You need to enter your username, email and password for sign up!",
-      });
+    return res.status(400).json({
+      errorMessage:
+        "Hey! You need to enter your username, email and password for sign up!",
+    });
   }
 
   // email BE validation
@@ -91,7 +89,7 @@ router.post("/login", (req, res, next) => {
           });
         }
         req.session.user = user;
-        return res.json(user);
+        return res.json({ user });
       });
     })
     .catch((err) => {
@@ -118,12 +116,9 @@ router.get("/loggedin", (req, res, next) => {
   if (req.session.user) {
     res.json({ user: req.session.user });
   }
-  res
-    .status(403)
-    .json({
-      errorMessage:
-        "There was a problem with authentication. Please, try again!",
-    });
+  res.status(403).json({
+    errorMessage: "There was a problem with authentication. Please, try again!",
+  });
 });
 
 //profiles (list to search)
@@ -135,10 +130,10 @@ router.get("/profiles", (req, res, next) => {
 
 //detailed profile (=> private)
 router.get("/profile/:id", (req, res, next) => {
- // const logged_id = req.session.user._id;
- // const isLoggedUser = user_id === logged_id; This should be done through middlewares
+  // const logged_id = req.session.user._id;
+  // const isLoggedUser = user_id === logged_id; This should be done through middlewares
   User.findById(req.params.id)
-    .then((data) => res.json(data, /* isLoggedUser */))
+    .then((data) => res.json(data /* isLoggedUser */))
     .catch((err) => next(err));
 });
 
@@ -158,15 +153,15 @@ router.patch("/profile/:id", (req, res, next) => {
   User.findByIdAndUpdate(
     req.params.id,
     {
-    username,
-    email,
-    fullName,
-    profileImage,
-    sex,
-    age,
-    hobbies,
-    typeOfUser,
-    isAdmin,
+      username,
+      email,
+      fullName,
+      profileImage,
+      sex,
+      age,
+      hobbies,
+      typeOfUser,
+      isAdmin,
     },
     { new: true }
   )
