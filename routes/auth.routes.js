@@ -22,7 +22,7 @@ router.post("/signup", (req, res, next) => {
   if (!mailRegex.test(email)) {
     return res.json({
       errorMessage:
-        "Wooho! that seems to be an incorrect type of email. Please, write a correct one!",
+        "Woohoo! that seems to be an incorrect type of email. Please, write a correct one!",
     });
   }
 

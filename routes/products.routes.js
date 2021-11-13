@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Product = require("../models/Product.model");
 const Review = require("../models/Review.model");
+const fileUploader = require("../middlewares/cloudinary.config")
 
 // create the main products route (list)
 router.get("/", (req, res, next) => {
@@ -10,8 +11,9 @@ router.get("/", (req, res, next) => {
   });
 
 // create the add products route
-router.post("/create", (req, res, next) => {
-    const {title, productImage, description, pricePolicy, price} = req.body;
+router.post("/create", fileUploader.single("productImage"), (req, res, next) => {
+    const {title, description, pricePolicy, price} = req.body;
+    const productImage = req.file.path;
     const { user } = req.session;
     Product.create({title, productImage, description, pricePolicy, price, user_id: user._id })
     .then((data) => res.json(data))
@@ -40,8 +42,9 @@ router.post("/:id/reviews/create", (req, res, next) => {
   }); 
 
 // create the edit products route
-router.patch("/:id", (req, res, next) => {
-    const {title, productImage, description, pricePolicy, price} = req.body;
+router.patch("/:id", fileUploader.single("productImage"), (req, res, next) => {
+    const {title, description, pricePolicy, price} = req.body;
+    const productImage = req.file.path;
     Product.findByIdAndUpdate(
     req.params.id,
     {title, productImage, description, pricePolicy, price} ,

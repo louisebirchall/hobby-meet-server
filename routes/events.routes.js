@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Event = require("../models/Event.model");
 const Review = require("../models/Review.model");
 const Post = require("../models/Post.model")
+const fileUploader = require("../middlewares/cloudinary.config")
 
 // create the main events route (list)
 router.get("/", (req, res, next) => {
@@ -21,10 +22,9 @@ router.get("/random/:number", (req, res, next) => {
 });
 
 // create the add events route
-router.post("/create", (req, res, next) => {
+router.post("/create", fileUploader.single("eventImage"), (req, res, next) => {
   const {
     title,
-    eventImage,
     hobby_id,
     description,
     equipment,
@@ -34,6 +34,7 @@ router.post("/create", (req, res, next) => {
     pricePolicy,
     price,
   } = req.body; 
+  const eventImage = req.file.path;
   const { user } = req.session;
   // console.log(req.body);
   // console.log("CREATE EVENTS");
@@ -76,8 +77,9 @@ router.post("/:id/reviews/create", (req, res, next) => {
   });
 
   // create the post for events
-router.post("/:id/posts/create", (req, res, next) => {
-  const { postImage, description } = req.body;
+router.post("/:id/posts/create", fileUploader.single("postImage"), (req, res, next) => {
+  const { description } = req.body;
+  const postImage = req.file.path;
   const { user } = req.session;
   Post.create({ postImage, description, user_id: user._id })
       .then((post) => {
@@ -102,10 +104,9 @@ router.post("/:id/attend", (req, res, next) => {
 // create the edit events route
 // router.patch because patch will only update the specific/chosen event _> /:id
 // (!) setting the change to "true" to confirm the done changes
-router.patch("/:id", (req, res, next) => {
+router.patch("/:id", fileUploader.single("eventImage"), (req, res, next) => {
     const {
         title,
-        eventImage,
         hobby_id,
         description,
         equipment,
@@ -116,6 +117,7 @@ router.patch("/:id", (req, res, next) => {
         price,
         charity_id,
       } = req.body;
+      const eventImage = req.file.path;
   Event.findByIdAndUpdate(
     req.params.id,
     {   title,

@@ -22,7 +22,8 @@ const userSchema = new Schema({
   isAdmin: Boolean,
   type: {
     type: String,
-    enum:['User', 'Company']
+    enum:['User', 'Company'],
+
   },
   sex:  {
     type: String,

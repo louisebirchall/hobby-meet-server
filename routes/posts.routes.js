@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Post = require("../models/Post.model");
+const fileUploader = require("../middlewares/cloudinary.config")
 
 
 // the create reviews route is in each place that is having a review created
@@ -12,8 +13,9 @@ router.get("/:id", (req, res, next) => {
   });
 
 // create the edit posts route
-router.patch("/:id", (req, res, next) => {
-    const{postImage, description}= req.body;
+router.patch("/:id", fileUploader.single("postImage"),(req, res, next) => {
+    const{ description}= req.body;
+    const postImage = req.file.path;
   Post.findByIdAndUpdate(req.params.id, {postImage, description}, { new: true })
     .then((data) => res.json(data))
     .catch((err) => next(err));

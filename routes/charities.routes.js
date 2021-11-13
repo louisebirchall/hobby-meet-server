@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Charity = require("../models/Charity.model");
 const Review = require("../models/Review.model");
 const Post = require("../models/Post.model")
+const fileUploader = require("../middlewares/cloudinary.config")
 
 
 // The Charities will be created by admins
@@ -14,8 +15,9 @@ router.get("/", (req, res, next) => {
   });
 
 // create the add charities route
-router.post("/create", (req, res, next) => {
-    const {charityImage, name, description} = req.body;
+router.post("/create", fileUploader.single("charityImage"), (req, res, next) => {
+    const {name, description} = req.body;
+    const charityImage = req.file.path;
     Charity.create({charityImage, name, description})
     .then((data) => res.json(data))
     .catch((err) => {next(err)});
@@ -43,8 +45,9 @@ router.post("/:id/reviews/create", (req, res, next) => {
   });
 
     // create the post for charities
-router.post("/:id/posts/create", (req, res, next) => {
-  const { postImage, description } = req.body;
+router.post("/:id/posts/create", fileUploader.single("postImage"), (req, res, next) => {
+  const { description } = req.body;
+  const postImage = req.file.path;
   const { user } = req.session;
   Post.create({ postImage, description, user_id: user._id })
       .then((post) => {
@@ -58,12 +61,12 @@ router.post("/:id/posts/create", (req, res, next) => {
 
 // create the edit charities route
 // router.patch because patch will only update the specific/chosen charity _> /:id
-router.patch("/:id", (req, res, next) => {
+router.patch("/:id", fileUploader.single("charityImage"), (req, res, next) => {
     const {
-        charityImage,
         name,
         description,
       } = req.body;
+      const charityImage = req.file.path;
   Charity.findByIdAndUpdate(
     req.params.id,
     {   charityImage,
