@@ -79,14 +79,14 @@ router.post("/login", (req, res, next) => {
   User.findOne({ username })
     .then((user) => {
       if (!user) {
-        return res.json({
+        return res.status(400).json({
           errorMessage:
             "Do you have an account yet? Make sure you write you username correctly :-D!",
         });
       }
       bcrypt.compare(password, user.password).then((isSamePassword) => {
         if (!isSamePassword) {
-          return res.json({
+          return res.status(400).json({
             errorMessage: "Password is incorrect, please try again",
           });
         }
