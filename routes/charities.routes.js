@@ -53,9 +53,9 @@ router.post("/:id/reviews/create", (req, res, next) => {
 
 // create the post for charities
 router.post("/:id/posts/create", (req, res, next) => {
-  const { description, postImage } = req.body;
+  const { description, image } = req.body;
   const { user } = req.session;
-  Post.create({ postImage, description, user_id: user._id })
+  Post.create({ postImage: image, description, user_id: user._id })
     .then((post) => {
       return Charity.findByIdAndUpdate(
         req.params.id,
