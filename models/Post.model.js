@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const postSchema = new Schema({
-    postImage: {
+    image: {
         type: String,
     },
     //this is to show who is the author of the post

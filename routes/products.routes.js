@@ -13,11 +13,11 @@ router.get("/", (req, res, next) => {
 // create the add products route
 router.post("/create", (req, res, next) => {
   const { title, description, pricePolicy, price } = req.body;
-  const productImage = req.file.path;
+  const image = req.file.path;
   const { user } = req.session;
   Product.create({
     title,
-    productImage,
+    image,
     description,
     pricePolicy,
     price,
@@ -59,10 +59,10 @@ router.post("/:id/reviews/create", (req, res, next) => {
 
 // create the edit products route
 router.patch("/:id", (req, res, next) => {
-  const { title, description, pricePolicy, price, productImage } = req.body;
+  const { title, description, pricePolicy, price, image } = req.body;
   Product.findByIdAndUpdate(
     req.params.id,
-    { title, productImage, description, pricePolicy, price },
+    { title, image, description, pricePolicy, price },
     { new: true }
   )
     .then((data) => res.json(data))

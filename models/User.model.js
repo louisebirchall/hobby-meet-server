@@ -15,7 +15,7 @@ const userSchema = new Schema({
     require: true
   },
   fullName: String,
-  profileImage:  {
+  image:  {
     type: String,
     default: 'https://png.pngtree.com/png-vector/20190909/ourmidpngtree-outline-user-icon-png-image_1727916.jpg'
   },

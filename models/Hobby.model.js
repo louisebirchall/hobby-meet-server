@@ -20,7 +20,7 @@ const hobbySchema = new Schema({
       ],
     },
     description: String,
-    hobbyImage: String,
+    image: String,
     placeOfActivity: {
       type: String,
       enum: ["Indoors", "Outdoors", "Indoors/Outdoors"],

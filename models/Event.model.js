@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const eventSchema = new Schema({
-    eventImage: {
+    image: {
         type: String,
         default: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCthRyJ1Sh4X8HyhnyiqJLBxsULXwuz3TaRg&usqp=CAU'
     }, 

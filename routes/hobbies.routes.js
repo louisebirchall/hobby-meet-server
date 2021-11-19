@@ -13,7 +13,7 @@ router.get("/", (req, res, next) => {
 
 // create the add hobbies route
 router.post("/create", (req, res, next) => {
-  const { name, typeOfActivity, description, placeOfActivity, hobbyImage } =
+  const { name, typeOfActivity, description, placeOfActivity, image } =
     req.body;
   // console.log(req.body);
   // console.log("CREATE HOBBIES")
@@ -21,7 +21,7 @@ router.post("/create", (req, res, next) => {
     name,
     typeOfActivity,
     description,
-    hobbyImage,
+    image,
     placeOfActivity,
   })
     .then((data) => res.json(data))
@@ -38,9 +38,9 @@ router.get("/:id", (req, res, next) => {
 
 // create the post for hobbies
 router.post("/:id/posts/create", (req, res, next) => {
-  const { description, postImage } = req.body;
+  const { description, image } = req.body;
   const { user } = req.session;
-  Post.create({ postImage, description, user_id: user._id })
+  Post.create({ image, description, user_id: user._id })
     .then((post) => {
       return Hobby.findByIdAndUpdate(
         req.params.id,
@@ -60,11 +60,11 @@ router.post("/:id/posts/create", (req, res, next) => {
 // router.patch because patch will only update the specific/chosen hobby _> /:id
 // (!) setting the change to "true" to confirm the done changes
 router.patch("/:id", (req, res, next) => {
-  const { name, typeOfActivity, description, placeOfActivity, hobbyImage } =
+  const { name, typeOfActivity, description, placeOfActivity, image } =
     req.body;
   Hobby.findByIdAndUpdate(
     req.params.id,
-    { name, typeOfActivity, description, hobbyImage, placeOfActivity },
+    { name, typeOfActivity, description, image, placeOfActivity },
     { new: true }
   )
     .then((data) => res.json(data))
