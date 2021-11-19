@@ -17,7 +17,7 @@ const userSchema = new Schema({
   fullName: String,
   image:  {
     type: String,
-    default: 'https://png.pngtree.com/png-vector/20190909/ourmidpngtree-outline-user-icon-png-image_1727916.jpg'
+    default: 'https://i.pinimg.com/736x/e5/ed/80/e5ed80c10d1fb9aae22c8dfda9b094c2.jpg'
   },
   isAdmin: Boolean,
   type: {
