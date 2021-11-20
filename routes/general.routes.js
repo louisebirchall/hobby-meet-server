@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const imageUploader = require("../middlewares/cloudinary.config.js");
 // const MongoStore = require("connect-mongo");
 
 const Event = require("../models/Event.model");
@@ -41,5 +41,12 @@ router.get("/search", async (req, res, next) => {
   }
 });
 
+router.post("/upload", imageUploader.single("image"), (req, res, next) => {
+  if (!req.file) {
+    next(new Error("No file upload!"));
+    return;
+  }
+  res.json({ imagePath: req.file.path });
+});
 
 module.exports = router;

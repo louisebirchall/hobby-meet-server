@@ -29,12 +29,6 @@ router.use("/reviews", reviewsRoutes);
 const generalRoutes = require("./general.routes");
 router.use("/", generalRoutes);
 
-router.post("/upload", imageUploader.single("image"), (req, res, next) => {
-  if (!req.file) {
-    next(new Error("No file upload!"));
-    return;
-  }
-  res.json({ imagePath: req.file.path });
-});
+
 
 module.exports = router;
