@@ -138,7 +138,8 @@ router.get("/profile/:id", (req, res, next) => {
 });
 
 //edit profile
-router.patch("/profile/:id", isLoggedIn, (req, res, next) => {
+router.patch("/profile/:id", (req, res, next) => {
+  console.log("something")
   const {
     username,
     email,
@@ -166,7 +167,12 @@ router.patch("/profile/:id", isLoggedIn, (req, res, next) => {
     { new: true }
   )
     .then((data) => res.json(data))
-    .catch((err) => next(err));
+    .catch((err) => {
+      console.log(err)
+      next(err)
+    }
+    
+    );
 });
 
 //delete profile
