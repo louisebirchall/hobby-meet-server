@@ -15,8 +15,8 @@ router.get("/", (req, res, next) => {
 
 // create the add charities route
 router.post("/create", (req, res, next) => {
-  const { name, description, charityImage } = req.body;
-  Charity.create({ charityImage, name, description })
+  const { name, description, image } = req.body;
+  Charity.create({ image, name, description })
     .then((data) => res.json(data))
     .catch((err) => {
       next(err);
@@ -55,7 +55,7 @@ router.post("/:id/reviews/create", (req, res, next) => {
 router.post("/:id/posts/create", (req, res, next) => {
   const { description, image } = req.body;
   const { user } = req.session;
-  Post.create({ postImage: image, description, user_id: user._id })
+  Post.create({ image, description, user_id: user._id })
     .then((post) => {
       return Charity.findByIdAndUpdate(
         req.params.id,
@@ -74,10 +74,10 @@ router.post("/:id/posts/create", (req, res, next) => {
 // create the edit charities route
 // router.patch because patch will only update the specific/chosen charity _> /:id
 router.patch("/:id", (req, res, next) => {
-  const { name, description, charityImage } = req.body;
+  const { name, description, image } = req.body;
   Charity.findByIdAndUpdate(
     req.params.id,
-    { charityImage, name, description },
+    { image, name, description },
     { new: true }
   )
     .then((data) => res.json(data))

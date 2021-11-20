@@ -12,10 +12,10 @@ router.get("/:id", (req, res, next) => {
 
 // create the edit posts route
 router.patch("/:id", (req, res, next) => {
-  const { description, postImage } = req.body;
+  const { description, image } = req.body;
   Post.findByIdAndUpdate(
     req.params.id,
-    { postImage, description },
+    { image, description },
     { new: true }
   )
     .then((data) => res.json(data))

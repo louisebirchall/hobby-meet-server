@@ -29,6 +29,7 @@ router.get("/random/:number", (req, res, next) => {
 router.post("/create", (req, res, next) => {
   const {
     title,
+    image,
     hobby_id,
     description,
     equipment,
@@ -44,7 +45,7 @@ router.post("/create", (req, res, next) => {
   // console.log("CREATE EVENTS");
   Event.create({
     title,
-    eventImage,
+    image,
     hobby_id,
     description,
     equipment,
@@ -89,9 +90,9 @@ router.post("/:id/reviews/create", (req, res, next) => {
 
 // create the post for events
 router.post("/:id/posts/create", (req, res, next) => {
-  const { description, postImage } = req.body;
+  const { description, image } = req.body;
   const { user } = req.session;
-  Post.create({ postImage, description, user_id: user._id })
+  Post.create({ image, description, user_id: user._id })
     .then((post) => {
       return Event.findByIdAndUpdate(
         req.params.id,
@@ -135,14 +136,14 @@ router.patch("/:id", (req, res, next) => {
     pricePolicy,
     price,
     charity_id,
-    eventImage,
+    image,
   } = req.body;
 
   Event.findByIdAndUpdate(
     req.params.id,
     {
       title,
-      eventImage,
+      image,
       hobby_id,
       description,
       equipment,
