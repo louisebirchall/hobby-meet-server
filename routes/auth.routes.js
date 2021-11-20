@@ -130,11 +130,12 @@ router.get("/profiles", (req, res, next) => {
 });
 
 //detailed profile (=> private)
-router.get("/profile/:id", isLoggedIn, (req, res, next) => {
+router.get("/profile/:id", (req, res, next) => {
   User.findById(req.params.id)
     .then((data) => res.status(200).json(data))
     .catch((err) => next(err));
 });
+
 
 //edit profile
 router.patch("/profile/:id", isLoggedIn, (req, res, next) => {

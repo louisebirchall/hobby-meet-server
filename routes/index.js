@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const imageUploader = require("../middlewares/cloudinary.config.js");
 
-router.get("/", (req, res, next) => {
-  res.json("All good in here");
-});
+// router.get("/", (req, res, next) => {
+//   res.json("All good in here");
+// });
 
 const authRoutes = require("./auth.routes");
 router.use("/auth", authRoutes);
@@ -25,6 +25,9 @@ router.use("/posts", postsRoutes);
 
 const reviewsRoutes = require("./reviews.routes");
 router.use("/reviews", reviewsRoutes);
+
+const generalRoutes = require("./general.routes");
+router.use("/", generalRoutes);
 
 router.post("/upload", imageUploader.single("image"), (req, res, next) => {
   if (!req.file) {
