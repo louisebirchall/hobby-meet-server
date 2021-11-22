@@ -16,7 +16,11 @@ router.get("/", (req, res, next) => {
 // create the add charities route
 router.post("/create", (req, res, next) => {
   const { name, description, image } = req.body;
-  Charity.create({ image, name, description })
+  Charity.create({ 
+    image, 
+    name, 
+    description
+  })
     .then((data) => res.json(data))
     .catch((err) => {
       next(err);

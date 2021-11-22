@@ -39,7 +39,7 @@ router.post("/create", (req, res, next) => {
     pricePolicy,
     price,
   } = req.body;
-  const eventImage = req.file.path;
+  // const {image} = req.file.path;
   const { user } = req.session;
   // console.log(req.body);
   // console.log("CREATE EVENTS");

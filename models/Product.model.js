@@ -17,7 +17,7 @@ const productSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Event'
     },
-    charity_id:{
+    charity_id: {
         type: Schema.Types.ObjectId,
         ref: 'Charity'
     },

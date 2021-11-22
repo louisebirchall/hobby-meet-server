@@ -12,7 +12,7 @@ router.get("/", (req, res, next) => {
 
 // create the add products route
 router.post("/create", (req, res, next) => {
-  const { title, description, pricePolicy, price, image } = req.body;
+  const { title, image, description, pricePolicy, price } = req.body;
   const { user } = req.session;
   Product.create({
     title,
