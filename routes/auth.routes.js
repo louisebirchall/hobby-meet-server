@@ -19,7 +19,7 @@ router.post("/signup", (req, res, next) => {
   const mailRegex =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (!mailRegex.test(email)) {
-    return res.json({
+    return res.status(400).json({
       errorMessage:
         "Woohoo! that seems to be an incorrect type of email. Please, write a correct one!",
     });
@@ -28,7 +28,7 @@ router.post("/signup", (req, res, next) => {
   // password length
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
   if (!passwordRegex.test(password)) {
-    return res.json({
+    return res.status(400).json({
       errorMessage:
         "Oooo your password needs to be, at least, 8 characters long, uppercase and lowercase, if you want to get in!",
     });
@@ -37,7 +37,7 @@ router.post("/signup", (req, res, next) => {
   // check if username is taken
   User.findOne({ username: username }).then((founduser) => {
     if (founduser) {
-      return res.json({
+      return res.status(400).json({
         errorMessage:
           "Hi fellow! This username has already been taken. We are sure you'll find another one that fits you!",
       });
@@ -56,7 +56,8 @@ router.post("/signup", (req, res, next) => {
         res.status(201).json(user);
       })
       .catch((error) => {
-        return res.json({
+        return res.status(
+          400).json({
           errorMessage: `Problem creating user, ${error.message}`,
         });
       });
@@ -135,7 +136,6 @@ router.get("/profile/:id", (req, res, next) => {
     .then((data) => res.status(200).json(data))
     .catch((err) => next(err));
 });
-
 
 //edit profile
 router.patch("/profile/:id", (req, res, next) => {
