@@ -29,6 +29,8 @@ router.use("/reviews", reviewsRoutes);
 const generalRoutes = require("./general.routes");
 router.use("/", generalRoutes);
 
+const paymentRoutes = require("./payment.routes")
+router.use("/payment", paymentRoutes)
 
 
 module.exports = router;
