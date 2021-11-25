@@ -4,7 +4,7 @@ const router = express.Router();
 const { resolve } = require("path");
 
 // TODO inside the ("") you need to add your real key or the test key that stripe will give you in their documentation.
-const stripe = require("stripe")("");
+const stripe = require("stripe")("sk_test_51JzF8fKkWmomGiX95qaw4XoLdpjG7OxwcUNfLwjdm1qWqzWjDzdFa2Qb8XxbqO7TdEoshuRgefug5bwrU1VpTu0E00kQgW3y3d");
 
 const calculateOrderAmount = (items) => {
     //! always use the id and access the database to get the price
@@ -17,7 +17,7 @@ const calculateOrderAmount = (items) => {
 
 router.post("/create-payment-intent", async (req, res) => {
   const { items } = req.body;
-
+  console.log(items)
   // Create a PaymentIntent with the order amount and currency
    // Create a PaymentIntent with the order amount and currency
    const paymentIntent = await stripe.paymentIntents.create({

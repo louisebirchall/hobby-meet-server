@@ -26,11 +26,12 @@ router.use("/posts", postsRoutes);
 const reviewsRoutes = require("./reviews.routes");
 router.use("/reviews", reviewsRoutes);
 
+const paymentRoutes = require("./payment.routes")
+router.use("/payments", paymentRoutes)
+
 const generalRoutes = require("./general.routes");
 router.use("/", generalRoutes);
 
-const paymentRoutes = require("./payment.routes")
-router.use("/payment", paymentRoutes)
 
 
 module.exports = router;
