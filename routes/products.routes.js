@@ -12,20 +12,32 @@ router.get("/", (req, res, next) => {
 
 // create the add products route
 router.post("/create", (req, res, next) => {
-  const { title, image, description, pricePolicy, price } = req.body;
+  const { image, title, description, pricePolicy, price } = req.body;
   const { user } = req.session;
   Product.create({
     title,
     image,
     description,
-    pricePolicy,
-    price,
     user_id: user._id,
+    pricePolicy,
+    price,    
   })
     .then((data) => res.json(data))
     .catch((err) => {
       next(err);
     });
+});
+
+// create the edit products route
+router.patch("/:id", (req, res, next) => {
+  const { image, title, description, pricePolicy, price } = req.body;
+  Product.findByIdAndUpdate(
+    req.params.id,
+    { image, title, description, pricePolicy, price },
+    { new: true }
+  )
+    .then((data) => res.json(data))
+    .catch((err) => next(err));
 });
 
 // create the detailed products route
@@ -54,18 +66,6 @@ router.post("/:id/reviews/create", (req, res, next) => {
     .catch((err) => {
       next(err);
     });
-});
-
-// create the edit products route
-router.patch("/:id", (req, res, next) => {
-  const { title, description, pricePolicy, price, image } = req.body;
-  Product.findByIdAndUpdate(
-    req.params.id,
-    { title, image, description, pricePolicy, price },
-    { new: true }
-  )
-    .then((data) => res.json(data))
-    .catch((err) => next(err));
 });
 
 // create the delete products route

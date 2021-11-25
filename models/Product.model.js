@@ -1,18 +1,18 @@
 const { Schema, model } = require("mongoose");
 
 const productSchema = new Schema({
-    title: String,
     image: String,
+    title: String,    
     description: String,
-    pricePolicy: {
-        type: String,
-        enum: ['FixedPrice', 'Voluntary'] 
-    },
-    price: Number,
     user_id: { 
         type: Schema.Types.ObjectId,  
         ref: 'User'
     },
+    pricePolicy: {
+        type: String,
+        enum: ['FixedPrice', 'Voluntary'] 
+    },
+    price: Number,    
     event_id: {
         type: Schema.Types.ObjectId,
         ref: 'Event'

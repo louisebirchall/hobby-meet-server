@@ -148,7 +148,7 @@ router.patch("/profile/:id", (req, res, next) => {
     sex,
     age,
     hobbies,
-    typeOfUser,
+    type,
     isAdmin,
   } = req.body;
   User.findByIdAndUpdate(
@@ -161,7 +161,7 @@ router.patch("/profile/:id", (req, res, next) => {
       sex,
       age,
       hobbies,
-      typeOfUser,
+      type,
       isAdmin,
     },
     { new: true }

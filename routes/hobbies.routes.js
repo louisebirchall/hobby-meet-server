@@ -17,13 +17,7 @@ router.post("/create", (req, res, next) => {
     req.body;
   // console.log(req.body);
   // console.log("CREATE HOBBIES")
-  Hobby.create({
-    name,
-    typeOfActivity,
-    description,
-    image,
-    placeOfActivity,
-  })
+  Hobby.create({name, typeOfActivity, description, placeOfActivity, image })
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });
@@ -64,7 +58,7 @@ router.patch("/:id", (req, res, next) => {
     req.body;
   Hobby.findByIdAndUpdate(
     req.params.id,
-    { name, typeOfActivity, description, image, placeOfActivity },
+    { name, typeOfActivity, description, placeOfActivity, image},
     { new: true }
   )
     .then((data) => res.json(data))
