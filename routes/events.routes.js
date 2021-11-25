@@ -143,7 +143,6 @@ router.patch("/:id", (req, res, next) => {
     req.params.id,
     {
       title,
-      image,
       hobby_id,
       description,
       equipment,
@@ -153,6 +152,7 @@ router.patch("/:id", (req, res, next) => {
       pricePolicy,
       price,
       charity_id,
+      image,
     },
     { new: true }
   )
