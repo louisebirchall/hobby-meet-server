@@ -170,5 +170,18 @@ router.delete("/:id", (req, res, next) => {
 });
 
 // How we make the relation between the user that created the event and the event?
+// How do we connect users to events
+router.get("/profile/:id", (req, res) => {
+  const { id } = req.params;
+  Event.findById(id)
+    .then((event) => {
+      console.log("Here's your event reservation:", event);
+      res.json({ event });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 
 module.exports = router;

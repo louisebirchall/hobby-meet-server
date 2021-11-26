@@ -32,7 +32,12 @@ const userSchema = new Schema({
   age: Number,
  // location: String, // change to dropdown
   hobbies: String,
-},{
+  events: {
+    type: Schema.Types.ObjectId,
+    ref: "Event"
+  }
+},
+{
   timestamps: true,
 });
 
