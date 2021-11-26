@@ -38,6 +38,7 @@ router.post("/create", (req, res, next) => {
     attendees_min,
     pricePolicy,
     price,
+    location,
   } = req.body;
   // const {image} = req.file.path;
   const { user } = req.session;
@@ -54,6 +55,7 @@ router.post("/create", (req, res, next) => {
     attendees_min,
     pricePolicy,
     price,
+    location,
     user_id: user._id,
   })
     .then((data) => res.json(data))
@@ -135,6 +137,7 @@ router.patch("/:id", (req, res, next) => {
     attendees_min,
     pricePolicy,
     price,
+    location,
     charity_id,
     image,
   } = req.body;
@@ -151,6 +154,7 @@ router.patch("/:id", (req, res, next) => {
       attendees_min,
       pricePolicy,
       price,
+      location,
       charity_id,
       image,
     },
