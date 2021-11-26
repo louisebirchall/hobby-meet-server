@@ -7,10 +7,10 @@ const eventSchema = new Schema({
     }, 
     title: String,
     //this is for selecting the hobby to which is related the event
-    hobby_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Hobby'
-    },
+    // hobby_id: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Hobby'
+    // },
     description: String,
     equipment: String,
     date: Date,
@@ -33,12 +33,13 @@ const eventSchema = new Schema({
     },
     pricePolicy: {
         type: String,
-        enum: ['FixedPrice', 'Free', 'Voluntary'] 
+        enum: ['Fixed Price', 'Free', 'Voluntary'] 
     },
     price: {
         type: Number
     },
-  // location:, // coordinates, //mapbox
+    location: String, 
+    // coordinates, //mapbox
     organizedBy: {
         type: String,
         enum: ['Charity', 'Company', 'User']
