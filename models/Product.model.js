@@ -10,7 +10,7 @@ const productSchema = new Schema({
     },
     pricePolicy: {
         type: String,
-        enum: ['FixedPrice', 'Voluntary'] 
+        enum: ['Fixed Price', 'Voluntary'] 
     },
     price: Number,    
     event_id: {
