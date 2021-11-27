@@ -10,11 +10,43 @@ const users = [
     password: Sarahñ1234,
     image:
       "https://estaticos.muyinteresante.es/uploads/images/staff/54c8aec73cafe817102ddfca/sarah-muy_0.jpg",
-    isAdmin:
-      false,
-      sex: "Female",
-      age: 27,
-      hobbies: "Sewing",
+    isAdmin: false,
+    sex: "Female",
+    age: 27,
+    hobbies: "Sewing",
+  },
+  {
+    username: "John",
+    email: "john@john.com",
+    password: Johnñ1234,
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/c/cb/John_Denver_1974.jpg",
+    isAdmin: false,
+    sex: "Male",
+    age: 43,
+    hobbies: "Photography",
+  },
+  {
+    username: "Ana",
+    email: "ana@ana.com",
+    password: Anañ1234,
+    image:
+      "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/ana-brenda-contreras-diezminutos-1623306359.jpg",
+    isAdmin: false,
+    sex: "Female",
+    age: 25,
+    hobbies: "Climbing",
+  },
+  {
+    username: "Dave",
+    email: "dave@dave.com",
+    password: Daveñ1234,
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/c/cb/John_Denver_1974.jpg",
+    isAdmin: false,
+    sex: "Male",
+    age: 35,
+    hobbies: "Jigsaw Puzzles",
   },
 ];
 
