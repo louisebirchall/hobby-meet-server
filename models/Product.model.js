@@ -13,10 +13,10 @@ const productSchema = new Schema({
         enum: ['Fixed Price', 'Voluntary'] 
     },
     price: Number,    
-    event_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Event'
-    },
+    // event_id: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Event'
+    // },
     charity_id: {
         type: Schema.Types.ObjectId,
         ref: 'Charity'
