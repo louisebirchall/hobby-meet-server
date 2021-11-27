@@ -2,6 +2,8 @@ const router = require("express").Router();
 const Event = require("../models/Event.model");
 const Review = require("../models/Review.model");
 const Post = require("../models/Post.model");
+const { isLoggedIn } = require("../middlewares/authoritation");
+
 
 // create the main events route (list)
 router.get("/", (req, res, next) => {
@@ -26,7 +28,7 @@ router.get("/random/:number", (req, res, next) => {
 });
 
 // create the add events route
-router.post("/create", (req, res, next) => {
+router.post("/create", isLoggedIn, (req, res, next) => {
   const {
     title,
     image,
@@ -71,7 +73,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 // create the review for events
-router.post("/:id/reviews/create", (req, res, next) => {
+router.post("/:id/reviews/create", isLoggedIn, (req, res, next) => {
   const { comment, stars } = req.body;
   const { user } = req.session;
   Review.create({ comment, stars, user_id: user._id })
@@ -91,7 +93,7 @@ router.post("/:id/reviews/create", (req, res, next) => {
 });
 
 // create the post for events
-router.post("/:id/posts/create", (req, res, next) => {
+router.post("/:id/posts/create", isLoggedIn, (req, res, next) => {
   const { description, image } = req.body;
   const { user } = req.session;
   Post.create({ image, description, user_id: user._id })
@@ -126,7 +128,7 @@ router.post("/:id/attend", (req, res, next) => {
 // create the edit events route
 // router.patch because patch will only update the specific/chosen event _> /:id
 // (!) setting the change to "true" to confirm the done changes
-router.patch("/:id", (req, res, next) => {
+router.patch("/:id", isLoggedIn, (req, res, next) => {
   const {
     title,
     hobby_id,
@@ -167,7 +169,7 @@ router.patch("/:id", (req, res, next) => {
 // create the delete event route
 // router.delete
 // after deleting the event => redirect to event list ("/") ?
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", isLoggedIn, (req, res, next) => {
   Event.findByIdAndDelete(req.params.id)
     .then((data) => res.json(data._id))
     .catch((err) => next(err));

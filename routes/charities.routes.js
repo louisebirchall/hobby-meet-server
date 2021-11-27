@@ -2,6 +2,8 @@ const router = require("express").Router();
 const Charity = require("../models/Charity.model");
 const Review = require("../models/Review.model");
 const Post = require("../models/Post.model");
+const { isLoggedIn, isAdmin } = require("../middlewares/authoritation");
+
 
 // The Charities will be created by admins
 

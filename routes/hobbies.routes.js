@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Hobby = require("../models/Hobby.model");
 const Post = require("../models/Post.model");
+const { isLoggedIn, isAdmin } = require("../middlewares/authoritation");
 // The hobbies will be created by admins
 
 // create the main hobbies route (list)
@@ -12,7 +13,7 @@ router.get("/", (req, res, next) => {
 });
 
 // create the add hobbies route
-router.post("/create", (req, res, next) => {
+router.post("/create", isLoggedIn , (req, res, next) => {
   const { name, typeOfActivity, description, placeOfActivity, image } =
     req.body;
   // console.log(req.body);
@@ -31,7 +32,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 // create the post for hobbies
-router.post("/:id/posts/create", (req, res, next) => {
+router.post("/:id/posts/create", isLoggedIn, (req, res, next) => {
   const { description, image } = req.body;
   const { user } = req.session;
   Post.create({ image, description, user_id: user._id })
@@ -53,7 +54,7 @@ router.post("/:id/posts/create", (req, res, next) => {
 // create the edit hobbies route
 // router.patch because patch will only update the specific/chosen hobby _> /:id
 // (!) setting the change to "true" to confirm the done changes
-router.patch("/:id", (req, res, next) => {
+router.patch("/:id", isLoggedIn , (req, res, next) => {
   const { name, typeOfActivity, description, placeOfActivity, image } =
     req.body;
   Hobby.findByIdAndUpdate(
@@ -68,7 +69,7 @@ router.patch("/:id", (req, res, next) => {
 // create the delete hobbies route
 // router.delete
 // after deleting the hobby => redirect to hobby list ("/") ?
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", isLoggedIn , (req, res, next) => {
   Hobby.findByIdAndDelete(req.params.id)
     .then((data) => res.json(data._id))
     .catch((err) => next(err));
