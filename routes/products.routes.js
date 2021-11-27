@@ -23,7 +23,8 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     user_id: user._id,
     pricePolicy,
     price,    
-  })
+  },     req.params.charity_id,
+  )
     .then((data) => res.json(data))
     .catch((err) => {
       next(err);
@@ -35,7 +36,8 @@ router.patch("/:id", isLoggedIn, (req, res, next) => {
   const { image, title, description, pricePolicy, price } = req.body;
   Product.findByIdAndUpdate(
     req.params.id,
-    { image, title, description, pricePolicy, price },
+    req.params.charity_id,
+    { image, title, description, pricePolicy, price},
     { new: true }
   )
     .then((data) => res.json(data))
