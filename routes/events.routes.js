@@ -4,7 +4,6 @@ const Review = require("../models/Review.model");
 const Post = require("../models/Post.model");
 const { isLoggedIn } = require("../middlewares/authoritation");
 
-
 // create the main events route (list)
 router.get("/", (req, res, next) => {
   Event.find()
@@ -116,15 +115,17 @@ router.post("/:id/posts/create", isLoggedIn, (req, res, next) => {
 
 // creating an endpoint to show who's attending to the event
 router.post("/:id/attend", (req, res, next) => {
+  console.log(req.session);
   Event.findByIdAndUpdate(
     req.params.id,
     { $push: { attendees: req.session.user._id } },
     { new: true }
   )
     .then((result) => {
+      console.log(result);
       res.status(200).json({ event: result });
     })
-    .catch((err) => {});
+    .catch((err) => console.log(err));
 });
 
 // create the edit events route
@@ -180,6 +181,5 @@ router.delete("/:id", isLoggedIn, (req, res, next) => {
 });
 
 // How we make the relation between the user that created the event and the event?
-
 
 module.exports = router;
