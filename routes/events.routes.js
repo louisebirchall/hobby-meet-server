@@ -41,6 +41,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     pricePolicy,
     price,
     location,
+    organizedBy,
   } = req.body;
   // const {image} = req.file.path;
   const { user } = req.session;
@@ -58,6 +59,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     pricePolicy,
     price,
     location,
+    organizedBy,
     user_id: user._id,
   })
     .then((data) => res.json(data))
@@ -140,6 +142,7 @@ router.patch("/:id", isLoggedIn, (req, res, next) => {
     pricePolicy,
     price,
     location,
+    organizedBy,
     charity_id,
     image,
   } = req.body;
@@ -157,6 +160,7 @@ router.patch("/:id", isLoggedIn, (req, res, next) => {
       pricePolicy,
       price,
       location,
+      organizedBy,
       charity_id,
       image,
     },
@@ -176,18 +180,6 @@ router.delete("/:id", isLoggedIn, (req, res, next) => {
 });
 
 // How we make the relation between the user that created the event and the event?
-// How do we connect users to events
-router.get("/profile/:id", (req, res) => {
-  const { id } = req.params;
-  Event.findById(id)
-    .then((event) => {
-      console.log("Here's your event reservation:", event);
-      res.json({ event });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
 
 
 module.exports = router;
