@@ -56,8 +56,7 @@ router.post("/signup", (req, res, next) => {
         res.status(201).json(user);
       })
       .catch((error) => {
-        return res.status(
-          400).json({
+        return res.status(400).json({
           errorMessage: `Problem creating user, ${error.message}`,
         });
       });
@@ -131,26 +130,17 @@ router.get("/profiles", (req, res, next) => {
 });
 
 //detailed profile (=> private)
-router.get("/profile/:id", (req, res, next) => {
+router.get("/profiles/:id", (req, res, next) => {
   User.findById(req.params.id)
     .then((data) => res.status(200).json(data))
     .catch((err) => next(err));
 });
 
 //edit profile
-router.patch("/profile/:id", (req, res, next) => {
-  console.log("something")
-  const {
-    username,
-    email,
-    fullName,
-    image,
-    sex,
-    age,
-    hobbies,
-    type,
-    isAdmin,
-  } = req.body;
+router.patch("/profiles/:id", (req, res, next) => {
+  console.log("something");
+  const { username, email, fullName, image, sex, age, hobbies, type, isAdmin } =
+    req.body;
   User.findByIdAndUpdate(
     req.params.id,
     {
@@ -168,15 +158,13 @@ router.patch("/profile/:id", (req, res, next) => {
   )
     .then((data) => res.json(data))
     .catch((err) => {
-      console.log(err)
-      next(err)
-    }
-    
-    );
+      console.log(err);
+      next(err);
+    });
 });
 
 //delete profile
-router.delete("/profile/:id", isLoggedIn, (req, res, next) => {
+router.delete("/profiles/:id", isLoggedIn, (req, res, next) => {
   User.findByIdAndDelete(req.params.id)
     .then((data) => res.json(data._id))
     .catch((err) => next(err));
