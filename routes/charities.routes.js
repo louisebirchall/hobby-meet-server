@@ -16,7 +16,7 @@ router.get("/", (req, res, next) => {
 });
 
 // create the add charities route
-router.post("/create", (req, res, next) => {
+router.post("/create", isLoggedIn, (req, res, next) => {
   const { name, description, image } = req.body;
   Charity.create({ 
     image, 
@@ -38,7 +38,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 // create the review for charity
-router.post("/:id/reviews/create", (req, res, next) => {
+router.post("/:id/reviews/create", isLoggedIn, (req, res, next) => {
   const { comment, stars } = req.body;
   const { user } = req.session;
   Review.create({ comment, stars, user_id: user._id })
@@ -58,7 +58,7 @@ router.post("/:id/reviews/create", (req, res, next) => {
 });
 
 // create the post for charities
-router.post("/:id/posts/create", (req, res, next) => {
+router.post("/:id/posts/create", isLoggedIn, (req, res, next) => {
   const { description, image } = req.body;
   const { user } = req.session;
   Post.create({ image, description, user_id: user._id })
@@ -79,7 +79,7 @@ router.post("/:id/posts/create", (req, res, next) => {
 
 // create the edit charities route
 // router.patch because patch will only update the specific/chosen charity _> /:id
-router.patch("/:id", (req, res, next) => {
+router.patch("/:id", isLoggedIn, (req, res, next) => {
   const { name, description, image } = req.body;
   Charity.findByIdAndUpdate(
     req.params.id,
@@ -93,7 +93,7 @@ router.patch("/:id", (req, res, next) => {
 // create the delete charities route
 // router.delete
 // after deleting the charity => redirect to charities list ("/") ?
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", isLoggedIn, (req, res, next) => {
   Charity.findByIdAndDelete(req.params.id)
     .then((data) => res.json(data._id))
     .catch((err) => next(err));
