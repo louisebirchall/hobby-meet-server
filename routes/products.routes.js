@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const Product = require("../models/Product.model");
 const Review = require("../models/Review.model");
+const { isLoggedIn } = require("../middlewares/authoritation");
+
 
 // create the main products route (list)
 router.get("/", (req, res, next) => {
@@ -11,7 +13,7 @@ router.get("/", (req, res, next) => {
 });
 
 // create the add products route
-router.post("/create", (req, res, next) => {
+router.post("/create", isLoggedIn, (req, res, next) => {
   const { image, title, description, pricePolicy, price } = req.body;
   const { user } = req.session;
   Product.create({
@@ -29,7 +31,7 @@ router.post("/create", (req, res, next) => {
 });
 
 // create the edit products route
-router.patch("/:id", (req, res, next) => {
+router.patch("/:id", isLoggedIn, (req, res, next) => {
   const { image, title, description, pricePolicy, price } = req.body;
   Product.findByIdAndUpdate(
     req.params.id,
@@ -49,7 +51,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 // create the review for events
-router.post("/:id/reviews/create", (req, res, next) => {
+router.post("/:id/reviews/create", isLoggedIn, (req, res, next) => {
   const { comment, stars } = req.body;
   const { user } = req.session;
   Review.create({ comment, stars, user_id: user._id })
@@ -70,7 +72,7 @@ router.post("/:id/reviews/create", (req, res, next) => {
 
 // create the delete products route
 // after deleting the charity => redirect to Products list ("/") ?
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", isLoggedIn, (req, res, next) => {
   Product.findByIdAndDelete(req.params.id)
     .then((data) => res.json(data._id))
     .catch((err) => next(err));

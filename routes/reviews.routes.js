@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const Review = require("../models/Review.model");
+const { isLoggedIn } = require("../middlewares/authoritation");
+
 
 // the create reviews route is in each place that is having a review created
 
@@ -11,7 +13,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 // create the edit posts route
-router.patch("/:id", (req, res, next) => {
+router.patch("/:id", isLoggedIn, (req, res, next) => {
   const { comment, stars } = req.body;
   Review.findByIdAndUpdate(req.params.id, { comment, stars }, { new: true })
     .then((data) => res.json(data))
@@ -20,7 +22,7 @@ router.patch("/:id", (req, res, next) => {
 
 // create the delete posts route
 // after deleting the review => redirect to the create review? (Not sure where will be better to redirect)
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", isLoggedIn, (req, res, next) => {
   Review.findByIdAndDelete(req.params.id)
     .then((data) => res.json(data._id))
     .catch((err) => next(err));
