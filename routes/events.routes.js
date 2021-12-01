@@ -121,6 +121,7 @@ router.post("/:id/attend", (req, res, next) => {
     { $push: { attendees: req.session.user._id } },
     { new: true }
   )
+    .populate("user_id username")
     .then((result) => {
       console.log(result);
       res.status(200).json({ event: result });
