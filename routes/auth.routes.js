@@ -71,6 +71,7 @@ router.post("/login", (req, res, next) => {
     return res.status(400).json({
       errorMessage: `Maybe did you forget to enter your ${
         username ? "password" : "username"}?`,
+        // username ? "password" : password ? "username and password" : "username"}`,
     });
   }
 
