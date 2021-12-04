@@ -69,9 +69,8 @@ router.post("/login", (req, res, next) => {
 
   if (!username || !password) {
     return res.status(400).json({
-      errorMessage: `Maybe did you forget to fill something? ${
-        username ? "password" : password ? "username and password" : "username"
-      }`,
+      errorMessage: `Maybe did you forget to enter your ${
+        username ? "password" : "username"}?`,
     });
   }
 
