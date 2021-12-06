@@ -3,11 +3,11 @@ const router = express.Router();
 
 
 // TODO inside the ("") you need to add your real key or the test key that stripe will give you in their documentation.
-const stripe = require("stripe")("sk_test_CGGvfNiIPwLXiDwaOfZ3oX6Y");
+const stripe = require("stripe")(process.env.STRIPE_BE_KEY);
 
 const calculateOrderAmount = (items) => {
     //! always use the id and access the database to get the price
-    console.log(items[0])
+    console.log(items[0]._id) // 1234
   // Replace this constant with a calculation of the order's amount
   // Calculate the order total on the server to prevent
   // people from directly manipulating the amount on the client

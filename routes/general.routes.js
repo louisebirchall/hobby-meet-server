@@ -14,9 +14,9 @@ router.get("/search", async (req, res, next) => {
   const { search, type } = req.query;
   try {
     // queries
-    const nameQuery = { name: { $regex: search, $options: 'gi' } }
-    const titleQuery = { title: { $regex: search, $options: 'gi' } }
-    const usernameQuery = { username: { $regex: search, $options: 'gi' } }
+    const nameQuery = { name: { $regex: search, $options: 'i' } }
+    const titleQuery = { title: { $regex: search, $options: 'i' } }
+    const usernameQuery = { username: { $regex: search, $options: 'i' } }
 
     let hobbies, events, users, charities;
     
