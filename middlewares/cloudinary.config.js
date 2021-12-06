@@ -1,5 +1,3 @@
-// here or in middlewares?
-
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
@@ -16,5 +14,5 @@ const storage = new CloudinaryStorage({
   folder: "host-a-pet",
 });
 
-//                     storage: storage
+// storage: storage
 module.exports = multer({ storage });
