@@ -47,7 +47,7 @@ router.patch("/:id", isLoggedIn, (req, res, next) => {
 // create the detailed products route
 router.get("/:id", (req, res, next) => {
   Product.findById(req.params.id)
-    .populate("") // removed: user_id reviews, now no error anymore
+    .populate("user_id reviews") 
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });
