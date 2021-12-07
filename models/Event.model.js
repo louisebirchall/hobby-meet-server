@@ -39,7 +39,11 @@ const eventSchema = new Schema({
         type: Number
     },
     location: String, 
-    // coordinates, //mapbox
+    coordinates: {
+        type : Number,
+        coordinates : [-122.5,37.7]
+    },
+ //mapbox
     organizedBy: {
         type: String,
         enum: ['Charity', 'Company', 'User']
