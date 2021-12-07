@@ -1,26 +1,33 @@
 const express = require("express")
 const router = express.Router();
+const Event = require("../models/Event.model");
+const Product = require("../models/Product.model")
 
 
 // TODO inside the ("") you need to add your real key or the test key that stripe will give you in their documentation.
 const stripe = require("stripe")(process.env.STRIPE_BE_KEY);
 
-const calculateOrderAmount = (items) => {
-    //! always use the id and access the database to get the price
-    console.log(items[0]._id) // 1234
-  // Replace this constant with a calculation of the order's amount
-  // Calculate the order total on the server to prevent
-  // people from directly manipulating the amount on the client
-  return 1400;
-};
 
 router.post("/create-payment-intent", async (req, res) => {
   const { items } = req.body;
-  console.log(items)
+
+  // Trying to find if the item is an event or a product
+  const eventFound = await Event.findById(items[0]._id);
+  const productFound = await Product.findById(items[0]._id);
+
+ // Variable that will be added to the stripe payment intend
+  let amount;
+
+  // Check depending on the type of item it's going to add the price to the amount variable
+  if(eventFound){
+    amount = eventFound.price * 100
+  } else {
+    amount = productFound.price * 100
+  }
+
   // Create a PaymentIntent with the order amount and currency
-   // Create a PaymentIntent with the order amount and currency
    const paymentIntent = await stripe.paymentIntents.create({
-    amount: calculateOrderAmount(items), 
+    amount,
     currency: "eur",
     payment_method_types: [
       "card",

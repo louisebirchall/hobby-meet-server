@@ -38,11 +38,17 @@ const eventSchema = new Schema({
     price: {
         type: Number
     },
-    location: String, 
-    coordinates: {
-        type : Number,
-        coordinates : [-122.5,37.7]
-    },
+    location: {
+        type: {
+          type: String,
+          enum: ["Point"],
+          required: true,
+        },
+        coordinates: {
+          type: [Number],
+          required: true,
+        },
+      },
  //mapbox
     organizedBy: {
         type: String,
