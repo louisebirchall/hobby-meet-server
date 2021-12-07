@@ -1,10 +1,12 @@
 const { Schema, model } = require("mongoose");
 
-const eventSchema = new Schema({
+const eventSchema = new Schema(
+  {
     image: {
-        type: String,
-        default: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCthRyJ1Sh4X8HyhnyiqJLBxsULXwuz3TaRg&usqp=CAU'
-    }, 
+      type: String,
+      default:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCthRyJ1Sh4X8HyhnyiqJLBxsULXwuz3TaRg&usqp=CAU",
+    },
     title: String,
     //this is for selecting the hobby to which is related the event
     // hobby_id: {
@@ -15,59 +17,73 @@ const eventSchema = new Schema({
     equipment: String,
     date: Date,
     //this is to show the users attending to the event
-    user_id: { 
-        type: Schema.Types.ObjectId,  
-        ref: 'User'
+    user_id: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
-    attendees: [{ 
-        type: Schema.Types.ObjectId,  
-        ref: 'User'
-    }],
+    attendees: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     attendees_max: {
-        type: Number,
-        min: 1,
+      type: Number,
+      min: 1,
     },
     attendees_min: {
-        type: Number,
-        min: 0,
+      type: Number,
+      min: 0,
     },
     pricePolicy: {
-        type: String,
-        enum: ['Fixed Price', 'Free', 'Voluntary'] 
+      type: String,
+      enum: ["Fixed Price", "Free", "Voluntary"],
     },
     price: {
-        type: Number
+      type: Number,
     },
-    location: String, 
-    coordinates: {
-        type : Number,
-        coordinates : [-122.5,37.7]
-    },
- //mapbox
-    organizedBy: {
+    location: {
+      type: {
         type: String,
-        enum: ['Charity', 'Company', 'User']
-        // Charity is for charity companies
-        // Private is for companies that want to offer an activity and donate the benefits to a cause
-        // Personal is for people who wants to offer an activity and donate the benefits to a cause
+        enum: ["Point"],
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
+    },
+    //mapbox
+    organizedBy: {
+      type: String,
+      enum: ["Charity", "Company", "User"],
+      // Charity is for charity companies
+      // Private is for companies that want to offer an activity and donate the benefits to a cause
+      // Personal is for people who wants to offer an activity and donate the benefits to a cause
     },
     //this is for a dropdown to select the charity the event organizer wants to donate the money
-    charity_id:{
-        type: Schema.Types.ObjectId,
-        ref: 'Charity'
+    charity_id: {
+      type: Schema.Types.ObjectId,
+      ref: "Charity",
     },
     //this is for showing the opinions about the event
-    posts:[{
+    posts: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'Post'
-    }],
-    reviews:[{
+        ref: "Post",
+      },
+    ],
+    reviews: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'Review'
-    }],
-},{
+        ref: "Review",
+      },
+    ],
+  },
+  {
     timestamps: true,
-});
+  }
+);
 
 const Event = model("Event", eventSchema);
 

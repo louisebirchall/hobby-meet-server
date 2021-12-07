@@ -24,6 +24,7 @@ const events = [
     description:
       "Come along and give it a try, or compete with others. All covid protocols are being followed",
     date: "07/12/2021",
+    user_id: "6197c49cd3ec94fa96d0f9f5",
     // attendees: "6",
     // attendees_max: "20",
     // attendees_min: "2",

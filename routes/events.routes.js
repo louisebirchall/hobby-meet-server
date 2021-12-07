@@ -40,7 +40,6 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     pricePolicy,
     price,
     location,
-    coordinates,
     organizedBy,
   } = req.body;
   // const {image} = req.file.path;
@@ -58,8 +57,10 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     attendees_min,
     pricePolicy,
     price,
-    location,
-    coordinates,
+    location: {
+        type: "Point",
+        coordinates: [location.lat, location.lng],
+      },
     organizedBy,
     user_id: user._id,
   })
@@ -146,7 +147,6 @@ router.patch("/:id", isLoggedIn, (req, res, next) => {
     pricePolicy,
     price,
     location,
-    coordinates,
     organizedBy,
     charity_id,
     image,
@@ -164,9 +164,11 @@ router.patch("/:id", isLoggedIn, (req, res, next) => {
       attendees_min,
       pricePolicy,
       price,
-      location,
+      location: {
+        type: "Point",
+        coordinates: [location.lat, location.lng],
+      },
       organizedBy,
-      coordinates,
       charity_id,
       image,
     },
