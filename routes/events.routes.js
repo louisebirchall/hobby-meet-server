@@ -70,7 +70,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
 // create the detailed events route
 router.get("/:id", (req, res, next) => {
   Event.findById(req.params.id)
-    .populate("posts user_id reviews")
+    .populate("posts user_id reviews attendees")
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });
@@ -120,10 +120,10 @@ router.post("/:id/attend", (req, res, next) => {
   console.log(req.session);
   Event.findByIdAndUpdate(
     req.params.id,
-    { $push: { attendees: req.session.user._id } },
+    { $addToSet: { attendees: req.session.user._id } },
     { new: true }
   )
-    .populate("user_id username")
+    .populate("posts user_id reviews attendees")
     .then((result) => {
       console.log(result);
       res.status(200).json({ event: result });
