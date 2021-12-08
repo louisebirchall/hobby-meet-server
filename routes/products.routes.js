@@ -7,7 +7,7 @@ const { isLoggedIn } = require("../middlewares/authoritation");
 // create the main products route (list)
 router.get("/", (req, res, next) => {
   Product.find()
-    .populate("user_id reviews")
+    .populate("user_id")
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });
@@ -36,7 +36,7 @@ router.patch("/:id", isLoggedIn, (req, res, next) => {
   const { image, title, description, pricePolicy, price } = req.body;
   Product.findByIdAndUpdate(
     req.params.id,
-    req.params.charity_id,
+    // req.params.charity_id,
     { image, title, description, pricePolicy, price},
     { new: true }
   )
@@ -47,7 +47,7 @@ router.patch("/:id", isLoggedIn, (req, res, next) => {
 // create the detailed products route
 router.get("/:id", (req, res, next) => {
   Product.findById(req.params.id)
-    .populate("user_id reviews") 
+    .populate("user_id") 
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });

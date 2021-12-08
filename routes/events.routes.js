@@ -29,9 +29,8 @@ router.get("/random/:number", (req, res, next) => {
 // create the add events route
 router.post("/create", isLoggedIn, (req, res, next) => {
   const {
-    title,
     image,
-    hobby_id,
+    title,
     description,
     equipment,
     date,
@@ -41,18 +40,19 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     price,
     location,
     organizedBy,
+    hobby_id,
   } = req.body;
   // const {image} = req.file.path;
   const { user } = req.session;
   // console.log(req.body);
   // console.log("CREATE EVENTS");
   Event.create({
-    title,
     image,
-    hobby_id,
+    title,
     description,
     equipment,
     date,
+    user_id: user._id,
     attendees_max,
     attendees_min,
     pricePolicy,
@@ -62,7 +62,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
         coordinates: [location.lat, location.lng],
       },
     organizedBy,
-    user_id: user._id,
+    hobby_id,
   })
     .then((data) => res.json(data))
     .catch((err) => next(err));
@@ -137,8 +137,8 @@ router.post("/:id/attend", (req, res, next) => {
 // (!) setting the change to "true" to confirm the done changes
 router.patch("/:id", isLoggedIn, (req, res, next) => {
   const {
+    image,
     title,
-    hobby_id,
     description,
     equipment,
     date,
@@ -148,29 +148,28 @@ router.patch("/:id", isLoggedIn, (req, res, next) => {
     price,
     location,
     organizedBy,
-    charity_id,
-    image,
+    hobby_id,
   } = req.body;
 
   Event.findByIdAndUpdate(
     req.params.id,
     {
-      title,
-      hobby_id,
-      description,
-      equipment,
-      date,
-      attendees_max,
-      attendees_min,
-      pricePolicy,
-      price,
-      location: {
+    image,
+    title,
+    description,
+    equipment,
+    date,
+    attendees_max,
+    attendees_min,
+    pricePolicy,
+    price,
+    location: {
         type: "Point",
         coordinates: [location.lat, location.lng],
       },
-      organizedBy,
-      charity_id,
-      image,
+    organizedBy,
+    hobby_id,
+    // user_id: user._id,
     },
     { new: true }
   )
