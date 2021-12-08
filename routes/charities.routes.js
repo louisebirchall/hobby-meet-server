@@ -10,7 +10,7 @@ const { isLoggedIn, isAdmin } = require("../middlewares/authoritation");
 // create the main charities route (list)
 router.get("/", (req, res, next) => {
   Charity.find()
-    .populate("posts reviews")
+    .populate("posts user_id reviews")
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });
@@ -32,7 +32,7 @@ router.post("/create", isAdmin, (req, res, next) => {
 // create the detailed charities route
 router.get("/:id", (req, res, next) => {
   Charity.findById(req.params.id)
-    .populate("posts reviews")
+    .populate("posts user_id reviews")
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });

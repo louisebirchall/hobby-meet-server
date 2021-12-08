@@ -12,6 +12,10 @@ const charitySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Post'
     }],
+    user_id: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
     reviews:[{
         type: Schema.Types.ObjectId,
         ref: 'Review'

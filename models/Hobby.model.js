@@ -25,6 +25,10 @@ const hobbySchema = new Schema({
       type: String,
       enum: ["Indoors", "Outdoors", "Indoors/Outdoors"],
     },
+    user_id: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
     posts: [
       {
         type: Schema.Types.ObjectId,
