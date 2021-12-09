@@ -42,7 +42,6 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     organizedBy,
     hobby_id,
   } = req.body;
-  // const {image} = req.file.path;
   const { user } = req.session;
   // console.log(req.body);
   // console.log("CREATE EVENTS");
@@ -57,10 +56,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     attendees_min,
     pricePolicy,
     price,
-    location: {
-        type: "Point",
-        coordinates: [location.lat, location.lng],
-      },
+    location,
     organizedBy,
     hobby_id,
   })
@@ -163,13 +159,9 @@ router.patch("/:id", isLoggedIn, (req, res, next) => {
     attendees_min,
     pricePolicy,
     price,
-    location: {
-        type: "Point",
-        // coordinates: [location.lat, location.lng],
-      },
+    location,
     organizedBy,
     hobby_id,
-    // user_id: user._id,
     },
     { new: true }
   )

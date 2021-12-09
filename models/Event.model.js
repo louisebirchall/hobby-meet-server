@@ -53,7 +53,6 @@ const eventSchema = new Schema(
         required: true,
       },
     },
-    //mapbox
     organizedBy: {
       type: String,
       enum: ["Charity", "Company", "User"],
@@ -62,10 +61,10 @@ const eventSchema = new Schema(
       // Personal is for people who wants to offer an activity and donate the benefits to a cause
     },
     //this is for a dropdown to select the charity the event organizer wants to donate the money
-    charity_id: {
+    charity_id: [{
       type: Schema.Types.ObjectId,
       ref: "Charity",
-    },
+    }],
     //this is for showing the opinions about the event
     posts: [
       {
