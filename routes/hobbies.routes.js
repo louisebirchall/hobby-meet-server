@@ -12,13 +12,27 @@ router.get("/", (req, res, next) => {
     .catch((err) => next(err));
 });
 
+router.get("/random/:number", (req, res, next) => {
+  Hobby.count()
+    .then((numberOfHobbies) => {
+      const randomNumber = Math.floor(Math.random() * numberOfHobbies);
+      return Hobby.find(
+        {},
+        {},
+        { skip: randomNumber, limit: req.params.number }
+      );
+    })
+    .then((event) => res.json(event))
+    .catch((err) => next(err));
+});
+
 // create the add hobbies route
-router.post("/create", isAdmin , (req, res, next) => {
+router.post("/create", isAdmin, (req, res, next) => {
   const { name, typeOfActivity, description, placeOfActivity, image } =
     req.body;
   // console.log(req.body);
   // console.log("CREATE HOBBIES")
-  Hobby.create({name, typeOfActivity, description, placeOfActivity, image })
+  Hobby.create({ name, typeOfActivity, description, placeOfActivity, image })
     .then((data) => res.json(data))
     .catch((err) => next(err));
 });
@@ -54,12 +68,12 @@ router.post("/:id/posts/create", isLoggedIn, (req, res, next) => {
 // create the edit hobbies route
 // router.patch because patch will only update the specific/chosen hobby _> /:id
 // (!) setting the change to "true" to confirm the done changes
-router.patch("/:id", isAdmin , (req, res, next) => {
+router.patch("/:id", isAdmin, (req, res, next) => {
   const { name, typeOfActivity, description, placeOfActivity, image } =
     req.body;
   Hobby.findByIdAndUpdate(
     req.params.id,
-    { name, typeOfActivity, description, placeOfActivity, image},
+    { name, typeOfActivity, description, placeOfActivity, image },
     { new: true }
   )
     .then((data) => res.json(data))
@@ -69,7 +83,7 @@ router.patch("/:id", isAdmin , (req, res, next) => {
 // create the delete hobbies route
 // router.delete
 // after deleting the hobby => redirect to hobby list ("/") ?
-router.delete("/:id", isAdmin , (req, res, next) => {
+router.delete("/:id", isAdmin, (req, res, next) => {
   Hobby.findByIdAndDelete(req.params.id)
     .then((data) => res.json(data._id))
     .catch((err) => next(err));
