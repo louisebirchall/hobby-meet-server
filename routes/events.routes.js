@@ -165,7 +165,7 @@ router.patch("/:id", isLoggedIn, (req, res, next) => {
     price,
     location: {
         type: "Point",
-        coordinates: [location.lat, location.lng],
+        // coordinates: [location.lat, location.lng],
       },
     organizedBy,
     hobby_id,
