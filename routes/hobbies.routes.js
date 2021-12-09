@@ -33,7 +33,7 @@ router.get("/:id", (req, res, next) => {
 
 // create the post for hobbies
 router.post("/:id/posts/create", isLoggedIn, (req, res, next) => {
-  const { description, image } = req.body;
+  const { image, description } = req.body;
   const { user } = req.session;
   Post.create({ image, description, user_id: user._id })
     .then((post) => {
